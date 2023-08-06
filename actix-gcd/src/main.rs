@@ -1,4 +1,5 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
+use serde::Deserialize;
 
 fn main() {
     let server = HttpServer::new(|| {
