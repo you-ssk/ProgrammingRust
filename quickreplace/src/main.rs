@@ -16,7 +16,16 @@ fn main() {
             std::process::exit(1);
         }
     };
-    match fs::write(&args.output, &data) {
+
+    let replace_data = match replace(&args.target, &args.replacement, &data) {
+        Ok(v) => v,
+        Err(e) => {
+            eprintln!("{} failed to replace text: {:?}", "Error".red().bold(), e);
+            std::process::exit(1);
+        }
+    };
+
+    match fs::write(&args.output, &replace_data) {
         Ok(_) => {}
         Err(e) => {
             eprintln!(
@@ -69,4 +78,10 @@ fn parse_args() -> Arguments {
         filename: args[2].clone(),
         output: args[3].clone(),
     }
+}
+
+use regex::Regex;
+fn replace(target: &str, replacement: &str, text: &str) -> Result<String, regex::Error> {
+    let regex = Regex::new(target)?;
+    Ok(regex.replace_all(text, replacement).to_string())
 }
