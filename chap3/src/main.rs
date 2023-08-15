@@ -53,13 +53,43 @@ fn main() {
     assert_eq!(32760_i16.saturating_add(10), 32767);
     assert_eq!((-32760_i16).saturating_sub(10), -32768);
 
-    assert_eq!(255_u8.overflowing_sub(2), (253,false));
+    assert_eq!(255_u8.overflowing_sub(2), (253, false));
     assert_eq!(255_u8.overflowing_add(2), (1, true));
 
-    assert_eq!(5_u16.overflowing_shl(17), (10,true));
+    assert_eq!(5_u16.overflowing_shl(17), (10, true));
+
+    ex_3_1_3();
+    ex_3_2();
+    ex_3_3();
 }
 
-fn build_vector() -> Vec<i16> {
+fn ex_3_1_3() {
+    assert!((-1. / f32::INFINITY).is_sign_negative());
+    assert_eq!(-f32::MIN, f32::MAX);
+
+    assert_eq!(5f32.sqrt() * 5f32.sqrt(), 5.);
+    assert_eq!((-1.01f64).floor(), -2.0);
+}
+
+fn ex_3_2() {
+    assert_eq!(false as i32, 0);
+    assert_eq!(true as i32, 1);
+}
+
+fn ex_3_3() {
+    assert_eq!('*' as i32, 42);
+    println!("{}", "ಠ_ಠ");
+    assert_eq!('ಠ' as u16, 0xca0);
+    assert_eq!('ಠ' as i8, -0x60);
+
+    assert_eq!('*'.is_alphabetic(), false);
+    assert_eq!('β'.is_alphabetic(), true);
+    assert_eq!('8'.to_digit(10), Some(8));
+    assert_eq!('ಠ'.len_utf8(), 3);
+    assert_eq!(std::char::from_digit(2, 10), Some('2'));
+}
+
+fn build_vector() -> Vec<i16> {                                                                                                                                                 
     let mut v: Vec<i16> = Vec::<i16>::new();
     v.push(10);
     v.push(20i16);
