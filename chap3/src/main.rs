@@ -61,6 +61,7 @@ fn main() {
     ex_3_1_3();
     ex_3_2();
     ex_3_3();
+    ex_3_4();
 }
 
 fn ex_3_1_3() {
@@ -89,7 +90,13 @@ fn ex_3_3() {
     assert_eq!(std::char::from_digit(2, 10), Some('2'));
 }
 
-fn build_vector() -> Vec<i16> {                                                                                                                                                 
+fn ex_3_4() {
+    let text: &str = "I see the eigenvalue in thine eye";
+    let (head, tail) = text.split_at(21);
+    assert_eq!(head, "I see the eigenvalue ");
+    assert_eq!(tail, "in thine eye");
+}
+fn build_vector() -> Vec<i16> {
     let mut v: Vec<i16> = Vec::<i16>::new();
     v.push(10);
     v.push(20i16);
