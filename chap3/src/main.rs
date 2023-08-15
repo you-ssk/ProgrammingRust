@@ -19,5 +19,8 @@ fn build_vector_infer() -> Vec<i16> {
     v.push(123);
     v.push(345);
     v.push(456);
+    for i in 1..10 {
+        v.push(i);
+    }
     v
 }
