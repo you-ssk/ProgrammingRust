@@ -62,6 +62,9 @@ fn main() {
     ex_3_2();
     ex_3_3();
     ex_3_4();
+    ex_3_5();
+    ex_3_6_1();
+    ex_3_6_2();
 }
 
 fn ex_3_1_3() {
@@ -96,6 +99,100 @@ fn ex_3_4() {
     assert_eq!(head, "I see the eigenvalue ");
     assert_eq!(tail, "in thine eye");
 }
+
+fn ex_3_5() {
+    let t = (12, "eggs");
+    let b = Box::new(t);
+    println!("{:?} : {:?}", t, b);
+}
+
+fn ex_3_6_1() {
+    let lazy_caterer: [u32; 6] = [1, 2, 4, 7, 11, 16];
+    let taxonomy = ["Animalia", "Arthropoda", "Insecta"];
+    assert_eq!(lazy_caterer[3], 7);
+    assert_eq!(taxonomy.len(), 3);
+
+    let mut sieve = [true; 10000];
+    for i in 2..100 {
+        if sieve[i] {
+            let mut j = i * i;
+            while j < 10000 {
+                sieve[j] = false;
+                j += i;
+            }
+        }
+    }
+    assert!(sieve[211]);
+    assert!(!sieve[9876]);
+
+    let mut chaos = [3, 5, 4, 1, 2];
+    chaos.sort();
+    println!("chaos : {:?}", chaos);
+    assert_eq!(chaos, [1, 2, 3, 4, 5]);
+}
+
+fn ex_3_6_2() {
+    let mut primes = vec![2, 3, 5, 7];
+    assert_eq!(primes.iter().product::<i32>(), 210);
+
+    primes.push(11);
+    primes.push(13);
+    assert_eq!(primes.iter().product::<i32>(), 30030);
+
+    let mut pal = Vec::new();
+    pal.push("step");
+    pal.push("on");
+    pal.push("no");
+    pal.push("pets");
+    assert_eq!(pal, vec!["step", "on", "no", "pets"]);
+
+    let v: Vec<i32> = (0..5).collect();
+    assert_eq!(v, [0, 1, 2, 3, 4]);
+
+    let mut palindrome = vec!["a man", "a plan", "a canal", "panama"];
+    palindrome.reverse();
+    assert_eq!(palindrome, vec!["panama", "a canal", "a plan", "a man"]);
+
+    let mut v = Vec::with_capacity(2);
+    assert_eq!(v.len(), 0);
+    assert_eq!(v.capacity(), 2);
+    v.push(1);
+    v.push(2);
+    assert_eq!(v.len(), 2);
+    assert_eq!(v.capacity(), 2);
+    v.push(3);
+    assert_eq!(v.len(), 3);
+    println!("capacity is now {}", v.capacity());
+
+    {
+        let mut v = vec![10, 20, 30, 40, 50];
+        v.insert(3, 35);
+        assert_eq!(v, [10, 20, 30, 35, 40, 50]);
+        v.remove(1);
+        assert_eq!(v, [10, 30, 35, 40, 50])
+    }
+    {
+        let mut v = vec!["Snow Puff", "Glass Gem"];
+        assert_eq!(v.pop(), Some("Glass Gem"));
+        assert_eq!(v.pop(), Some("Snow Puff"));
+        assert_eq!(v.pop(), None);
+    }
+    {
+        let languages: Vec<String> = std::env::args().skip(1).collect();
+        for l in languages {
+            println!(
+                "{}: {}",
+                l,
+                if l.len() % 2 == 0 {
+                    "functional"
+                } else {
+                    "imperative"
+                }
+            );
+        }
+    }
+}
+
 fn build_vector() -> Vec<i16> {
     let mut v: Vec<i16> = Vec::<i16>::new();
     v.push(10);
