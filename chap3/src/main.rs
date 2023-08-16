@@ -66,6 +66,61 @@ fn main() {
     ex_3_6_1();
     ex_3_6_2();
     ex_3_6_3();
+    ex_3_7();
+}
+
+use regex::Regex;
+
+fn ex_3_7() {
+    let speech = "\"Ouch!\" said the well.\n";
+    println!("{}", speech);
+
+    println!(
+        "In the room the woma come and go,
+    Singing of Mount
+     Abora"
+    );
+
+    println!("It was a bright, cold day in April, and \
+    there were four of us-\
+    more or less.");
+
+    let default_with_install_path = r"C:\Program Files\Gorillas";
+    let pattern = Regex::new(r"\d:(\.\d+)*");
+
+    println!(r###"
+    This raw string started with 'r###"'.
+    Therefore it does not end untail we reach a quote mark ('*')
+    followed immediately by three pound signs ('###'):"###);
+
+    let method = b"GET";
+    assert_eq!(method, &[b'G', b'E', b'T']);
+
+    {
+        let noodles = "noodles".to_string();
+        let oodles = &noodles[1..];
+        let poodles = "ಠ_ಠ";
+        println!("{} {} {}", noodles, oodles, poodles);
+        assert_eq!(poodles.len(), 7);
+        assert_eq!(poodles.chars().count(), 3);
+
+        //let mut s = "Hello";
+        //s[0] = 'c';
+        //s.push('\n');
+
+        let bits = vec!["veni", "vidi", "vici"];
+        assert_eq!(bits.concat(), "venividivici");
+        assert_eq!(bits.join(", "), "veni, vidi, vici");
+    }
+    {
+        assert!("peanut".contains("nut"));
+        assert_eq!("ಠ_ಠ".replace("ಠ", "■"), "■_■");
+        assert_eq!("        clean\n".trim(), "clean");
+
+        for word in "veni, vidi, vici".split(", ") {
+            assert!(word.starts_with("v"));
+        }
+    }
 }
 
 fn ex_3_6_3() {
