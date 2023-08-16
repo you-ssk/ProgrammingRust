@@ -65,6 +65,29 @@ fn main() {
     ex_3_5();
     ex_3_6_1();
     ex_3_6_2();
+    ex_3_6_3();
+}
+
+fn ex_3_6_3() {
+    let v: Vec<f64> = vec![0.0, 0.707, 1.0, 0.707];
+    let a: [f64; 4] = [0.0, -0.707, 1.0, -0.707];
+
+    let sv: &[f64] = &v;
+    let sa: &[f64] = &a;
+
+    fn print(n: &[f64]) {
+        for elt in n {
+            print!("{} ", elt);
+        }
+        println!("")
+    }
+    print(&a);
+    print(&v);
+    print(&sa);
+    print(&sv);
+    print(&v[0..2]);
+    print(&sa[2..]);
+    print(&sv[1..3]);
 }
 
 fn ex_3_1_3() {
