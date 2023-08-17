@@ -15,13 +15,23 @@ fn main() {
 
     let mut composers = Vec::new();
 
-    composers.push(Person { name: "Palestrina".to_string(), birth: 1525});
-    composers.push(Person { name: "Dowland".to_string(), birth: 1563});
-    composers.push(Person { name: "Lully".to_string(), birth: 1632});
+    composers.push(Person {
+        name: "Palestrina".to_string(),
+        birth: 1525,
+    });
+    composers.push(Person {
+        name: "Dowland".to_string(),
+        birth: 1563,
+    });
+    composers.push(Person {
+        name: "Lully".to_string(),
+        birth: 1632,
+    });
     for composer in &composers {
         println!("{}, born {}", composer.name, composer.birth);
     }
 
+    ex_4_2();
 }
 
 fn print_padovan() {
@@ -31,4 +41,12 @@ fn print_padovan() {
         padovan.push(next);
     }
     println!("P(1..10) = {:?}", padovan);
+}
+
+fn ex_4_2() {
+    let s = vec!["udon".to_string(), "ramen".to_string(), "soba".to_string()];
+    let t = s;
+    //let u = s;
+    let u: Vec<String> = t.clone();
+    println!("{:?} : {:?}", t, u);
 }
