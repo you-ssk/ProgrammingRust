@@ -32,6 +32,7 @@ fn main() {
     }
 
     ex_4_2();
+    ex_4_2_1();
 }
 
 fn print_padovan() {
@@ -49,4 +50,17 @@ fn ex_4_2() {
     //let u = s;
     let u: Vec<String> = t.clone();
     println!("{:?} : {:?}", t, u);
+}
+
+fn ex_4_2_1() {
+    let mut ss = "Govinda".to_string();
+    ss = "Siddhartha".to_string();
+
+    {
+        let mut s = "Govinda".to_string();
+        let t = s;
+        s = "Siddhartha".to_string();
+        println!("{} : {}", s, t);
+    }
+    println!("{}", ss);
 }
