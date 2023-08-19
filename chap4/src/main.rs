@@ -33,6 +33,7 @@ fn main() {
 
     ex_4_2();
     ex_4_2_1();
+    ex_4_2_2();
 }
 
 fn print_padovan() {
@@ -63,4 +64,29 @@ fn ex_4_2_1() {
         println!("{} : {}", s, t);
     }
     println!("{}", ss);
+}
+
+fn f(x: &Vec<i32>) {
+    println!("{:?}", x);
+}
+
+fn g(x: &Vec<i32>) {
+    let v: Vec<i32> = x.iter().map(|i| i * i).collect();
+    println!("{:?}", v);
+}
+
+fn h(x: &Vec<i32>) {
+    let v: Vec<i32> = x.iter().map(|i| i + i).collect();
+    println!("{:?}", v);
+}
+
+fn ex_4_2_2() {
+    let x = vec![10, 20, 30];
+    let c = true;
+    if c {
+        f(&x);
+    } else {
+        g(&x);
+    }
+    h(&x);
 }
