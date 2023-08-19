@@ -34,6 +34,7 @@ fn main() {
     ex_4_2();
     ex_4_2_1();
     ex_4_2_2();
+    ex_4_2_3();
 }
 
 fn print_padovan() {
@@ -89,4 +90,60 @@ fn ex_4_2_2() {
         g(&x);
     }
     h(&x);
+}
+
+fn ex_4_2_3() {
+    let mut v = Vec::new();
+    for i in 101..106 {
+        v.push(i.to_string());
+    }
+
+    // let third = v[2];
+    // let fifth = v[4];
+
+    let fifth = v.pop().expect("vector empty");
+    assert_eq!(fifth, "105");
+
+    let second = v.swap_remove(1);
+    assert_eq!(second, "102");
+
+    let third = std::mem::replace(&mut v[2], "substitute".to_string());
+    assert_eq!(third, "103");
+
+    assert_eq!(v, vec!["101", "104", "substitute"]);
+
+    {
+        let x = vec![
+            "liberte".to_string(),
+            "egalite".to_string(),
+            "fraternite".to_string(),
+        ];
+        for mut s in x {
+            s.push('!');
+            println!("{}", s);
+        }
+    }
+
+    {
+        struct Person {
+            name: Option<String>,
+            birth: i32,
+        }
+        let mut composers = Vec::new();
+        composers.push(Person {
+            name: Some("Palestrina".to_string()),
+            birth: 1525,
+        });
+        composers.push(Person {
+            name: Some("Dowland".to_string()),
+            birth: 1563,
+        });
+
+        //let first_name = composers[0].name;
+
+        //let first_name = std::mem::replace(&mut composers[0].name, None);
+        let first_name = composers[0].name.take();
+        assert_eq!(first_name, Some("Palestrina".to_string()));
+        assert_eq!(composers[0].name, None);
+    }
 }
