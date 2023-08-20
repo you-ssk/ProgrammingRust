@@ -36,6 +36,8 @@ fn main() {
     ex_4_2_2();
     ex_4_2_3();
     ex_4_3();
+
+    ex_4_4();
 }
 
 fn print_padovan() {
@@ -151,12 +153,31 @@ fn ex_4_2_3() {
 
 fn ex_4_3() {
     #[derive(Copy, Clone)]
-    struct Label {number: u32}
+    struct Label {
+        number: u32,
+    }
 
-    fn print(l: Label) { println!("STAMP: {:o}", l.number)}
+    fn print(l: Label) {
+        println!("STAMP: {:o}", l.number)
+    }
 
-    let l = Label { number: 3};
+    let l = Label { number: 3 };
 
     print(l);
-    println!("My label number is : {:o}", l.number); //error[E0382]: borrow of moved value: `l` 
-} 
+    println!("My label number is : {:o}", l.number); //error[E0382]: borrow of moved value: `l`
+}
+
+use std::rc::Rc;
+
+fn ex_4_4() {
+    let s: Rc<String> = Rc::new("shirataki".to_string());
+    let t: Rc<String> = s.clone();
+    let u: Rc<String> = t.clone();
+    println!("s:{} t:{} u:{}", s, t, u);
+
+    assert!(s.contains("shira"));
+    assert_eq!(t.find("aki"), Some(5));
+    println!("{} are quite chewy, almost boucy, but lack flavor", u);
+
+    // s.push_str(" noodles"); // cannot borrow data in an `Rc` as mutable
+}
