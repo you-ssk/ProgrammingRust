@@ -35,6 +35,7 @@ fn main() {
     ex_4_2_1();
     ex_4_2_2();
     ex_4_2_3();
+    ex_4_3();
 }
 
 fn print_padovan() {
@@ -147,3 +148,15 @@ fn ex_4_2_3() {
         assert_eq!(composers[0].name, None);
     }
 }
+
+fn ex_4_3() {
+    #[derive(Copy, Clone)]
+    struct Label {number: u32}
+
+    fn print(l: Label) { println!("STAMP: {:o}", l.number)}
+
+    let l = Label { number: 3};
+
+    print(l);
+    println!("My label number is : {:o}", l.number); //error[E0382]: borrow of moved value: `l` 
+} 
