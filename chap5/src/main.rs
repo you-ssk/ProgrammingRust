@@ -4,6 +4,8 @@ fn main() {
     println!("Hello, world!");
 
     ex_5_1();
+
+    ex_5_2_1();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -51,4 +53,23 @@ fn ex_5_1() {
 
     //assert_eq!(table["Gesualdo"][0], "many madrigals");
     assert_eq!(table["Gesualdo"][1], "many madrigals");
+}
+
+fn ex_5_2_1() {
+    struct Anime {
+        name: &'static str,
+        bechdel_pass: bool,
+    }
+    let aria = Anime {
+        name: "Aria: The Animation",
+        bechdel_pass: true,
+    };
+    let anime_ref = &aria;
+    assert_eq!(anime_ref.name, "Aria: The Animation");
+    assert_eq!((*anime_ref).name, "Aria: The Animation");
+
+    let mut v = vec![1973, 1968];
+    v.sort();
+    (&mut v).sort();
+    println!("{:?}", v);
 }
