@@ -4,8 +4,9 @@ fn main() {
     println!("Hello, world!");
 
     ex_5_1();
-
     ex_5_2_1();
+    ex_5_2_2();
+    ex_5_2_3();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -72,4 +73,26 @@ fn ex_5_2_1() {
     v.sort();
     (&mut v).sort();
     println!("{:?}", v);
+}
+
+fn ex_5_2_2() {
+    let x = 20;
+    let y = 10;
+    let mut r = &x;
+    if true {
+        r = &y;
+    }
+    assert!(*r == 10 || *r == 20);
+}
+
+fn ex_5_2_3() {
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+    let point = Point { x: 1000, y: 729 };
+    let r: &Point = &point;
+    let rr: &&Point = &r;
+    let rrr: &&&Point = &rr;
+    assert_eq!(rrr.y, 729);
 }
