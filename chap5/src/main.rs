@@ -107,7 +107,7 @@ fn ex_5_2_4() {
 
     let rrx = &rx;
     let rry = &ry;
-    
+
     assert!(rrx <= rry);
     assert!(rrx == rry);
     // assert!(rrx == ry); //error[E0277]: can't compare `&{integer}` with `{integer}`
