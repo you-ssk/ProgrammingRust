@@ -7,6 +7,7 @@ fn main() {
     ex_5_2_1();
     ex_5_2_2();
     ex_5_2_3();
+    ex_5_2_4();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -95,4 +96,25 @@ fn ex_5_2_3() {
     let rr: &&Point = &r;
     let rrr: &&&Point = &rr;
     assert_eq!(rrr.y, 729);
+}
+
+fn ex_5_2_4() {
+    let x = 10;
+    let y = 10;
+
+    let rx = &x;
+    let ry = &y;
+
+    let rrx = &rx;
+    let rry = &ry;
+    
+    assert!(rrx <= rry);
+    assert!(rrx == rry);
+    // assert!(rrx == ry); //error[E0277]: can't compare `&{integer}` with `{integer}`
+
+    assert!(rx == ry);
+    assert!(!std::ptr::eq(rx, ry));
+
+    //assert!(rx == rrx); //error[E0277]: can't compare `{integer}` with `&{integer}`
+    assert!(rx == *rrx);
 }
