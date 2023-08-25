@@ -8,6 +8,7 @@ fn main() {
     ex_5_2_2();
     ex_5_2_3();
     ex_5_2_4();
+    ex_5_2_6();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -117,4 +118,12 @@ fn ex_5_2_4() {
 
     //assert!(rx == rrx); //error[E0277]: can't compare `{integer}` with `&{integer}`
     assert!(rx == *rrx);
+}
+
+fn ex_5_2_6() {
+    fn factorial( n: usize) -> usize{
+        (1..n+1).product()
+    }
+    let r = &factorial(6);
+    assert_eq!(r + &1009, 1729);
 }
