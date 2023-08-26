@@ -121,9 +121,25 @@ fn ex_5_2_4() {
 }
 
 fn ex_5_2_6() {
-    fn factorial( n: usize) -> usize{
-        (1..n+1).product()
+    fn factorial(n: usize) -> usize {
+        (1..n + 1).product()
     }
     let r = &factorial(6);
     assert_eq!(r + &1009, 1729);
 }
+
+#[allow(dead_code)]
+fn ex_5_3_1() {
+    {
+        let r;
+        {
+            let x = 1;
+            r = &x; //^^ borrowed value does not live long enough
+            assert_eq!(*r, 1);
+        }
+        //- `x` dropped here while still borrowed
+        //assert_eq!(*r, 1);
+    }
+}
+
+
