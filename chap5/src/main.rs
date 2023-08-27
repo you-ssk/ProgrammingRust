@@ -9,6 +9,8 @@ fn main() {
     ex_5_2_3();
     ex_5_2_4();
     ex_5_2_6();
+
+    ex_5_3_2();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -142,4 +144,17 @@ fn ex_5_3_1() {
     }
 }
 
+static mut STASH: &i32 = &128;
 
+fn ex_5_3_2() {
+    fn f(p: &'static i32) {
+        unsafe {
+            STASH = p;
+        }
+    }
+    static WORTH_POINTING_AT: i32 = 1000;
+    f(&WORTH_POINTING_AT);
+    unsafe {
+        println!("{}", STASH);
+    }
+}
