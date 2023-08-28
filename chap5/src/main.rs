@@ -11,6 +11,7 @@ fn main() {
     ex_5_2_6();
 
     ex_5_3_2();
+    ex_5_3_3();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -157,4 +158,20 @@ fn ex_5_3_2() {
     unsafe {
         println!("{}", STASH);
     }
+}
+
+fn ex_5_3_3() {
+    fn g<'a>(p: &'a i32) {
+        println!("{}", p * 2);
+    }
+    let x = 10;
+    g(&x);
+
+    fn f(p: &'static i32) {
+        println!("{}", p * 3);
+    }
+    let xx = 10;
+    //f(&xx); //borrowed value does not live long enough
+    static STATIC_X: i32 = 11;
+    f(&STATIC_X);
 }
