@@ -12,6 +12,8 @@ fn main() {
 
     ex_5_3_2();
     ex_5_3_3();
+
+    ex_5_3_4();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -174,4 +176,23 @@ fn ex_5_3_3() {
     //f(&xx); //borrowed value does not live long enough
     static STATIC_X: i32 = 11;
     f(&STATIC_X);
+}
+
+fn ex_5_3_4() {
+    fn smallest(v: &[i32]) -> &i32 {
+        let mut s = &v[0];
+        for r in &v[1..] {
+            if *r < *s {
+                s = r;
+            }
+        }
+        s
+    }
+    // let s;
+    {
+        let parabola = [9, 4, 1, 0, 1, 4, 9];
+        let s = smallest(&parabola);
+        assert_eq!(*s, 0);
+    }
+    //assert_eq!(*s, 0);
 }
