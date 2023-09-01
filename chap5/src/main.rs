@@ -14,6 +14,7 @@ fn main() {
     ex_5_3_3();
 
     ex_5_3_4();
+    ex_5_3_5();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -195,4 +196,35 @@ fn ex_5_3_4() {
         assert_eq!(*s, 0);
     }
     //assert_eq!(*s, 0);
+}
+
+fn ex_5_3_5() {
+    // struct S{
+    //     // r: &i32 // error[E0106]: missing lifetime specifier
+    //     r: &'static i32
+    // }
+
+    struct S<'a>{
+        r: &'a i32
+    }
+
+    // struct D {
+    //     //s: S //error[E0106]: missing lifetime specifier
+    //     s: S<'static>
+    // }
+
+    struct D<'a> {
+        s: &'a S<'a>
+    }
+
+    let s;
+    let d;
+    let x = 10;
+    {
+        s = S{r: &x};
+        d = D{s: &s}
+    }
+
+    assert_eq!(*s.r, 10);
+    assert_eq!(*d.s.r, 10);
 }
