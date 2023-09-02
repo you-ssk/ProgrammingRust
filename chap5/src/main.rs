@@ -15,6 +15,7 @@ fn main() {
 
     ex_5_3_4();
     ex_5_3_5();
+    ex_5_3_6();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -204,8 +205,8 @@ fn ex_5_3_5() {
     //     r: &'static i32
     // }
 
-    struct S<'a>{
-        r: &'a i32
+    struct S<'a> {
+        r: &'a i32,
     }
 
     // struct D {
@@ -214,17 +215,35 @@ fn ex_5_3_5() {
     // }
 
     struct D<'a> {
-        s: &'a S<'a>
+        s: &'a S<'a>,
     }
 
     let s;
     let d;
     let x = 10;
     {
-        s = S{r: &x};
-        d = D{s: &s}
+        s = S { r: &x };
+        d = D { s: &s }
     }
 
     assert_eq!(*s.r, 10);
     assert_eq!(*d.s.r, 10);
+}
+
+fn ex_5_3_6() {
+    struct S<'a, 'b> {
+        x: &'a i32,
+        y: &'b i32,
+    }
+    let x = 10;
+    let r;
+    {
+        let y = 20;
+        {
+            let s = S { x: &x, y: &y }; //^^ borrowed value does not live long enough
+            r = s.x;
+        }
+        println!("{}", r);
+    }
+    println!("{}", r);
 }
