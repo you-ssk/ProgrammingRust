@@ -17,6 +17,8 @@ fn main() {
     ex_5_3_5();
     ex_5_3_6();
     ex_5_3_7();
+
+    ex_5_4();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -272,10 +274,85 @@ fn ex_5_3_7() {
         }
     }
 
-    fn first_third<'a>(point: &'a [i32;3]) -> (&'a i32, &'a i32){
+    fn first_third<'a>(point: &'a [i32; 3]) -> (&'a i32, &'a i32) {
         (&point[0], &point[2])
     }
     let point = [9, 4, 1];
     let ft = first_third(&point);
     println!("{:?}", ft);
+}
+
+fn ex_5_4() {
+    let v = vec![4, 8, 19, 27, 34, 10];
+    //let r = &v;
+    {
+        let r = &v;
+        println!("{:?}", r);
+    }
+    let aside = v; // error[E0505]: cannot move out of `v` because it is borrowed
+                   //println!("{}", r[0]);
+    println!("{:?}", aside);
+
+    fn extend(vec: &mut Vec<f64>, slice: &[f64]) {
+        for elt in slice {
+            vec.push(*elt);
+        }
+    }
+
+    let mut wave = Vec::new();
+    let head = vec![0.0, 1.0];
+    let tail = [0.0, -1.0];
+    extend(&mut wave, &head);
+    println!("{:?}", wave);
+    extend(&mut wave, &tail);
+    println!("{:?}", wave);
+
+    assert_eq!(wave, vec![0.0, 1.0, 0.0, -1.0]);
+
+    //extend(&mut wave, &wave);  //error[E0502]: cannot borrow `wave` as immutable because it is also borrowed as mutable
+
+    {
+        let mut x = 10;
+        let r1 = &x;
+        let r2 = &x;
+        //x += 10; // error[E0506]: cannot assign to `x` because it is borrowed
+        //let m = &mut x; // error[E0502]: cannot borrow `x` as mutable because it is also borrowed as immutable
+        println!("{}, {}, {}", r1, r2, x);
+    }
+    {
+        let mut y = 20;
+        let m1 = &mut y;
+        // let m2 = &mut y; // error[E0499]: cannot borrow `y` as mutable more than once at a time
+        // let z = y; // error[E0503]: cannot use `y` because it was mutably borrowed
+        // println!("{}, {}, {}", m1, m2, z);
+    }
+    {
+        let mut w = (107, 109);
+        let r = &w;
+        let r0 = &r.0;
+        // let m1 = &mut r.1; // error[E0596]: cannot borrow `r.1` as mutable, as it is behind a `&` reference
+        println!("{}", r0);
+    }
+    {
+        let mut v = (136, 139);
+        let m = &mut v;
+        let m0 = &mut m.0;
+        *m0 = 137;
+
+        let r1 = &m.1;
+        // println!("{}", v.1); // error[E0502]: cannot borrow `v.1` as immutable because it is also borrowed as mutable
+        println!("{}", r1);
+    }
+
+    {
+        struct File {
+            descriptor: i32
+        }
+        fn new_file(d: i32) -> File {
+            File { descriptor: d}
+        }
+        fn close_from(this: &mut File, rhs: &File){
+            //close( this.descriptor);
+        }
+    }
 }
