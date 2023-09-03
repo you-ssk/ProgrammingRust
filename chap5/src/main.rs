@@ -16,6 +16,7 @@ fn main() {
     ex_5_3_4();
     ex_5_3_5();
     ex_5_3_6();
+    ex_5_3_7();
 }
 
 type Table = HashMap<String, Vec<String>>;
@@ -246,4 +247,35 @@ fn ex_5_3_6() {
         println!("{}", r);
     }
     println!("{}", r);
+}
+
+fn ex_5_3_7() {
+    struct S<'a, 'b> {
+        x: &'a i32,
+        y: &'b i32,
+    }
+
+    fn sum_r_xy(r: &i32, s: S) -> i32 {
+        r + s.x + s.y
+    }
+    let sum;
+    let x = 10;
+    {
+        let y = 20;
+        {
+            let r = 100;
+            {
+                let s = S { x: &x, y: &y };
+                sum = sum_r_xy(&r, s);
+                println!("{}", sum);
+            }
+        }
+    }
+
+    fn first_third<'a>(point: &'a [i32;3]) -> (&'a i32, &'a i32){
+        (&point[0], &point[2])
+    }
+    let point = [9, 4, 1];
+    let ft = first_third(&point);
+    println!("{:?}", ft);
 }
