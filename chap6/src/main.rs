@@ -6,7 +6,8 @@ use std::io::BufRead;
 fn main() {
     println!("Hello, world!");
     ex_6_1();
-    ex_6_4();
+    ex_6_4().expect("error 6.4");
+    ex_6_5();
 }
 
 fn ex_6_1() {
@@ -32,4 +33,21 @@ fn ex_6_4() -> io::Result<()> {
         println!("{}", line)
     }
     Ok(())
+}
+
+fn ex_6_5(){
+    let retcode = 10;
+    match retcode {
+        0 => println!("OK"),
+        1 => println!("Wires Tabgled"),
+        2 => println!("User Asleep"),
+        _ => println!("Unrecognized Error {}", retcode)
+    }
+
+    //let params: Option<String> = Some("taro".to_string());
+    let params: Option<String> = None;
+    match params {
+        Some(params) => println!("Hello, {}!", params),
+        None => println!("Greetings, stranger")
+    }
 }
