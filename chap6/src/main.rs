@@ -8,6 +8,7 @@ fn main() {
     ex_6_1();
     ex_6_4().expect("error 6.4");
     ex_6_5();
+    ex_6_6();
 }
 
 fn ex_6_1() {
@@ -35,19 +36,47 @@ fn ex_6_4() -> io::Result<()> {
     Ok(())
 }
 
-fn ex_6_5(){
+fn ex_6_5() {
     let retcode = 10;
     match retcode {
         0 => println!("OK"),
         1 => println!("Wires Tabgled"),
         2 => println!("User Asleep"),
-        _ => println!("Unrecognized Error {}", retcode)
+        _ => println!("Unrecognized Error {}", retcode),
     }
 
     //let params: Option<String> = Some("taro".to_string());
     let params: Option<String> = None;
     match params {
         Some(params) => println!("Hello, {}!", params),
-        None => println!("Greetings, stranger")
+        None => println!("Greetings, stranger"),
+    }
+}
+
+fn ex_6_6() {
+    let number = Some(7);
+    //let number: Option<i32> = None;
+    let letter: Option<i32> = None;
+    let emoticon: Option<i32> = None;
+
+    if let Some(i) = number {
+        println!("Matched {:?}!", i)
+    } else {
+        println!("Didn't match a number. Let's go with a letter")
+    }
+
+    if let Some(i) = letter {
+        println!("Matched {:?}!", i)
+    } else {
+        println!("Didn't match a number. Let's go with a letter")
+    }
+    let i_like_letters = false;
+
+    if let Some(i) = emoticon {
+        println!("Matched {:?}", i);
+    } else if i_like_letters {
+        println!("Didn't match a number. Let's go with a letter");
+    } else {
+        println!("I don't like letters. Let's go with am emoticon')!");
     }
 }
