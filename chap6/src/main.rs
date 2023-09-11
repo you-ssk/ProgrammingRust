@@ -9,6 +9,7 @@ fn main() {
     ex_6_4().expect("error 6.4");
     ex_6_5();
     ex_6_6();
+    ex_6_7();
 }
 
 fn ex_6_1() {
@@ -79,4 +80,24 @@ fn ex_6_6() {
     } else {
         println!("I don't like letters. Let's go with am emoticon')!");
     }
+}
+
+fn ex_6_7() {
+    let mut num = 0;
+    while num < 10 {
+        println!("num = {}", num);
+        num = num + 1;
+    }
+
+    for i in num .. num*2 {
+        println!("i = {}", i)
+    }
+
+    let l = loop {
+        num = num + 1;
+        if num % 9 == 0 {
+            break num;
+        }
+    };
+    println!("after loop : num = {}, l = {:?}", num, l);
 }
