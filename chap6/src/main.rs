@@ -10,6 +10,7 @@ fn main() {
     ex_6_5();
     ex_6_6();
     ex_6_7();
+    ex_6_8();
 }
 
 fn ex_6_1() {
@@ -100,4 +101,27 @@ fn ex_6_7() {
         }
     };
     println!("after loop : num = {}, l = {:?}", num, l);
+
+    // let file = fs::File::open("Cargo.toml").expect("error open file");
+    // let buffered = io::BufReader::new(file);
+
+}
+
+fn ex_6_8(){
+    // labeled loop
+    'loop_i:
+    for i in 1..10 {
+        'loop_j:
+        for j in 1..10 {
+            println!("{}", i*j);
+            if i*j == 40 {
+                //break 'loop_i
+                break 'loop_j
+                //break
+            }
+            if i * j == 72 {
+                break 'loop_i
+            }
+        }
+    }
 }
