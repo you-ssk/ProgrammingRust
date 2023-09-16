@@ -1,3 +1,4 @@
+use core::num;
 use http::StatusCode;
 use std::fs;
 use std::io;
@@ -12,6 +13,7 @@ fn main() {
     ex_6_7();
     ex_6_8();
     ex_6_9();
+    ex_6_11();
 }
 
 fn ex_6_1() {
@@ -140,4 +142,21 @@ fn ex_6_9() {
         Ok(r) => println!("succ."),
         Err(err) => println!("{}", err),
     };
+}
+
+use rand::prelude::*;
+
+fn ex_6_11() {
+    let mut numbers = Vec::new();
+    numbers.push(1);
+    println!("{:?}", numbers);
+
+    // let n = 10;
+    // let ramp = (0..n).collect::<Vec<i32>>();
+    let mut rng = thread_rng();
+    let mut vals = (0..10).collect::<Vec<i32>>(); // ターボフィッシュ
+    let mut vals2: Vec<i32> = (0..10).collect(); //　ほかの書き方
+
+    vals.shuffle(&mut rng);
+    println!("{:?}", vals);
 }
