@@ -11,6 +11,7 @@ fn main() {
     ex_6_6();
     ex_6_7();
     ex_6_8();
+    ex_6_9();
 }
 
 fn ex_6_1() {
@@ -121,4 +122,22 @@ fn ex_6_8() {
             }
         }
     }
+}
+
+use std::fs::File;
+fn ret() -> Result<(), io::Error> {
+    let filename = "aaa.txt"; // Ok
+                              // let filename = "\\.txt"; // Err
+    let output = match File::create(filename) {
+        Ok(f) => f,
+        Err(err) => return Err(err),
+    };
+    Ok(())
+}
+
+fn ex_6_9() {
+    let r = match ret() {
+        Ok(r) => println!("succ."),
+        Err(err) => println!("{}", err),
+    };
 }
