@@ -14,6 +14,7 @@ fn main() {
     ex_6_8();
     ex_6_9();
     ex_6_11();
+    ex_6_12();
 }
 
 fn ex_6_1() {
@@ -159,4 +160,13 @@ fn ex_6_11() {
 
     vals.shuffle(&mut rng);
     println!("{:?}", vals);
+}
+
+fn ex_6_12() {
+    let mut vals = (0..20).collect::<Vec<i32>>();
+    let full = &vals[..];
+    println!("{:?}", full);
+    let first_half = &vals[..vals.len() / 2];
+    let last_half = &vals[vals.len() / 2..];
+    println!("{:?} : {:?}", first_half, last_half);
 }
