@@ -15,6 +15,7 @@ fn main() {
     ex_6_9();
     ex_6_11();
     ex_6_12();
+    ex_6_14();
 }
 
 fn ex_6_1() {
@@ -169,4 +170,33 @@ fn ex_6_12() {
     let first_half = &vals[..vals.len() / 2];
     let last_half = &vals[vals.len() / 2..];
     println!("{:?} : {:?}", first_half, last_half);
+}
+
+fn ex_6_14() {
+    println!("{}", -100);
+
+    //error[E0600]: cannot apply unary operator `-` to type `u32`
+    //println!("{}", -100u32);
+
+    //error: leading `+` is not supported
+    //println!("{}", +100u32);
+
+    //let x = 1234.567 % 1.0;
+    let x = 1234123412341234.567;
+    //let x = 12341234.567;
+    let y = x as i64;
+    //let z = i32::try_from(y);
+    let z = match i32::try_from(y) {
+        //Ok(z) => println!("{}", z),
+        Ok(z) => z,
+        Err(err) => {
+            println!("{:?}", err.to_string());
+            0
+        }
+    };
+    println!("{}, {}, {:?}", x, y, z);
+
+    let hi = 0xe0;
+    let lo = !hi;
+    println!("{}, {}", hi, lo);
 }
