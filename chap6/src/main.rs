@@ -16,6 +16,7 @@ fn main() {
     ex_6_11();
     ex_6_12();
     ex_6_14();
+    ex_6_16();
 }
 
 fn ex_6_1() {
@@ -199,4 +200,17 @@ fn ex_6_14() {
     let hi = 0xe0;
     let lo = !hi;
     println!("{}, {}", hi, lo);
+}
+
+fn ex_6_16() {
+    {
+        let x = 17;
+        let index = x as usize;
+        println!("{}, {}", x, index);
+    }
+    {
+        let x = 1e6;
+        let y: u8 = x as u8;
+        println!("{}, {}", x, y);
+    }
 }
