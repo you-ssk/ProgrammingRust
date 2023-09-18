@@ -17,6 +17,7 @@ fn main() {
     ex_6_12();
     ex_6_14();
     ex_6_16();
+    ex_6_17();
 }
 
 fn ex_6_1() {
@@ -213,4 +214,11 @@ fn ex_6_16() {
         let y: u8 = x as u8;
         println!("{}, {}", x, y);
     }
+}
+
+fn ex_6_17() {
+    let mut rng = thread_rng();
+    let x: u32 = rng.gen();
+    let is_even = |x| -> bool {x % 2 == 0};
+    println!("{}, {}", x, is_even(x));
 }
