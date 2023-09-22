@@ -1,6 +1,7 @@
 fn main() {
     ex_7_1();
     ex_7_2_1();
+    ex_7_2_2();
 }
 
 fn pirate_share(total: u64, crew_size: usize) -> u64 {
@@ -48,4 +49,9 @@ fn ex_7_2_1() {
     println!("{}", ret.is_err());
     let ret2 = ret.as_ref();
     println!("ret.ok = {:?}, ret.err = {:?}", ret2.ok(), ret2.err());
+}
+
+fn ex_7_2_2() {
+    let r = std::fs::remove_file("a.txt");
+    println!("{:?}", r)
 }
