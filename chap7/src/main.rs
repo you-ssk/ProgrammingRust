@@ -3,6 +3,7 @@ fn main() {
     ex_7_2_1();
     ex_7_2_2();
     ex_7_2_3();
+    ex_7_2_4();
 }
 
 fn pirate_share(total: u64, crew_size: usize) -> u64 {
@@ -61,4 +62,14 @@ fn ex_7_2_3(){
     let r = std::fs::remove_file("a.txt");
     println!("{}", r.as_ref().err().unwrap());
     //println!("{}", r.as_ref().ok().unwrap());
+}
+
+fn bar() -> Result<u32,io::Error>{
+    let r = std::fs::remove_file("a.txt")?;
+    Ok(32)
+}
+
+fn ex_7_2_4(){
+    let r = bar();
+    println!("{:?}", r);
 }
