@@ -1,8 +1,8 @@
-
-use std::io;
+use core::fmt;
 use std::fs;
+use std::io;
 use std::io::BufRead;
-
+use thiserror::Error;
 
 fn main() {
     ex_7_1();
@@ -11,6 +11,8 @@ fn main() {
     ex_7_2_3();
     ex_7_2_4();
     ex_7_2_5();
+    ex_7_2_6();
+    ex_7_2_9();
 }
 
 fn pirate_share(total: u64, crew_size: usize) -> u64 {
@@ -97,4 +99,46 @@ fn ex_7_2_5() {
     let mut bufread = io::BufReader::new(file);
     let r = read_numbers(&mut bufread);
     println!("{:?}", r);
+}
+
+fn ex_7_2_6() {
+    let str = "bleen";
+    let num1 = str.parse::<u64>();
+    println!("{:?}", num1);
+
+    //let num2 = "999999000000000000000".parse::<u64>().unwrap();
+    //println!("{:?}", num2);
+    //eprintln!("{:?}", num2);
+}
+
+
+//#[derive(Debug, Clone)]
+#[derive(Error, Debug)]
+#[error("{message:} ({line:}, {column})")]
+pub struct JsonError {
+    pub message: String,
+    pub line: usize,
+    pub column: usize,
+}
+
+// impl std::fmt::Display for JsonError {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+//         write!(f, "{} ({}:{})", self.message, self.line, self.column)
+//     }
+// }
+
+// impl std::error::Error for JsonError {}
+
+fn json_err_test() -> Result<u32, JsonError> {
+    return Err(JsonError {
+        message: "message.".to_string(),
+        line: 11,
+        column: 22,
+    });
+}
+
+fn ex_7_2_9() {
+    let je = json_err_test();
+    println!("{:?}", je);
+    println!("{}", je.err().unwrap());
 }
