@@ -21,9 +21,9 @@ fn main() {
     println!("final fern size: {}", fern.size);
 }
 
-struct Fern {
-    size: f64,
-    growth_rate: f64
+pub struct Fern {
+    pub size: f64,
+    pub growth_rate: f64
 }
 
 impl Fern {
@@ -32,7 +32,7 @@ impl Fern {
     }
 }
 
-fn run_simulate(fern: &mut Fern, days: usize) {
+pub fn run_simulate(fern: &mut Fern, days: usize) {
     for _ in 0..days {
         fern.grow();
     }
