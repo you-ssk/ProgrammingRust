@@ -3,6 +3,7 @@ mod grayscale;
 fn main() {
     println!("Hello, world!");
     ex_9_1();
+    ex_9_2();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -61,4 +62,17 @@ fn chop(b: Broom) -> (Broom, Broom) {
     broom2.name.push_str(" II");
 
     (broom1, broom2)
+}
+
+fn ex_9_2() {
+    #[derive(Debug)]
+    struct Bounds(usize, usize);
+
+    let image_bounds = Bounds(1024, 768);
+    println!("{:#?}", image_bounds);
+
+    #[derive(Debug)]
+    struct Ascii(Vec<u8>);
+    let ascii: Ascii = Ascii(vec![1, 2, 3, 255]);
+    println!("{:?}", ascii);
 }
