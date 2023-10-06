@@ -4,6 +4,7 @@ fn main() {
     println!("Hello, world!");
     ex_9_1();
     ex_9_2();
+    ex_9_3();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -75,4 +76,13 @@ fn ex_9_2() {
     struct Ascii(Vec<u8>);
     let ascii: Ascii = Ascii(vec![1, 2, 3, 255]);
     println!("{:?}", ascii);
+}
+
+fn ex_9_3(){
+    #[derive(Debug)]
+    struct Onesuch;
+
+    let o = Onesuch;
+    println!("{:?}", o);
+    assert_eq!((..), std::ops::RangeFull);
 }
