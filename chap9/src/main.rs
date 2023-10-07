@@ -1,10 +1,12 @@
 mod grayscale;
+mod queue;
 
 fn main() {
     println!("Hello, world!");
     ex_9_1();
     ex_9_2();
     ex_9_3();
+    ex_9_5();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -78,11 +80,36 @@ fn ex_9_2() {
     println!("{:?}", ascii);
 }
 
-fn ex_9_3(){
+fn ex_9_3() {
     #[derive(Debug)]
     struct Onesuch;
 
     let o = Onesuch;
     println!("{:?}", o);
     assert_eq!((..), std::ops::RangeFull);
+}
+
+fn ex_9_5() {
+    let mut q = queue::Queue {
+        older: Vec::new(),
+        younger: Vec::new(),
+    };
+    q.push('0');
+    q.push('1');
+    assert_eq!(q.pop(), Some('0'));
+    q.push('∞');
+    assert_eq!(q.pop(), Some('1'));
+    println!("is_empty {}", q.is_empty());
+    assert_eq!(q.pop(), Some('∞'));
+    assert_eq!(q.pop(), None);
+    println!("is_empty {}", q.is_empty());
+    println!("{:?}", q);
+
+    q.push('P');
+    q.push('D');
+    assert_eq!(q.pop(), Some('P'));
+    q.push('X');
+    let (older, younger) = q.split();
+    assert_eq!(older, vec!['D']);
+    assert_eq!(younger, vec!['X']);
 }
