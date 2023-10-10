@@ -5,6 +5,12 @@ pub struct Queue {
 }
 
 impl Queue {
+    pub fn new() -> Queue {
+        Queue {
+            older: Vec::new(),
+            younger: Vec::new(),
+        }
+    }
     pub fn push(&mut self, c: char) {
         self.younger.push(c);
     }

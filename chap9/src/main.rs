@@ -7,6 +7,8 @@ fn main() {
     ex_9_2();
     ex_9_3();
     ex_9_5();
+    ex_9_5_1();
+    ex_9_5_2();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -112,4 +114,18 @@ fn ex_9_5() {
     let (older, younger) = q.split();
     assert_eq!(older, vec!['D']);
     assert_eq!(younger, vec!['X']);
+}
+
+fn ex_9_5_1() {
+    let mut bq = Box::new(queue::Queue {
+        older: Vec::new(),
+        younger: Vec::new(),
+    });
+    bq.push('■');
+    println!("{:?}", bq);
+}
+
+fn ex_9_5_2() {
+    let mut q = queue::Queue::new();
+    q.push('*');
 }
