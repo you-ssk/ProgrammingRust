@@ -1,3 +1,4 @@
+mod genqueue;
 mod grayscale;
 mod queue;
 mod vec;
@@ -12,6 +13,7 @@ fn main() {
     ex_9_5_2();
 
     ex_9_6();
+    ex_9_7();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -138,4 +140,16 @@ fn ex_9_6() {
     println!("{:?}", scaled);
     let zero = vec::Vector2::ZERO;
     println!("{:?}", zero);
+}
+
+fn ex_9_7() {
+    // let mut q = genqueue::Queue::<char>::new();
+    let mut q = genqueue::Queue::new();
+    let mut r = genqueue::Queue::new();
+    q.push("CAD");
+    r.push(0.74);
+    q.push("BTC");
+    r.push(13764.0);
+    println!("{:?}", q);
+    println!("{:?}", r);
 }
