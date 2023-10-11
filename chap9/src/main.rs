@@ -1,5 +1,6 @@
 mod grayscale;
 mod queue;
+mod vec;
 
 fn main() {
     println!("Hello, world!");
@@ -9,6 +10,8 @@ fn main() {
     ex_9_5();
     ex_9_5_1();
     ex_9_5_2();
+
+    ex_9_6();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -128,4 +131,11 @@ fn ex_9_5_1() {
 fn ex_9_5_2() {
     let mut q = queue::Queue::new();
     q.push('*');
+}
+
+fn ex_9_6() {
+    let scaled = vec::Vector2::UNIT.scaled_by(2.0);
+    println!("{:?}", scaled);
+    let zero = vec::Vector2::ZERO;
+    println!("{:?}", zero);
 }
