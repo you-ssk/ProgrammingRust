@@ -15,6 +15,7 @@ fn main() {
     ex_9_6();
     ex_9_7();
     ex_9_8();
+    ex_9_9();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -171,10 +172,35 @@ fn ex_9_8() {
                 greatest = &slice[i];
             }
         }
-        Extrema { greatest, least}
+        Extrema { greatest, least }
     }
-    let a = [0,-3, 0, 15, 48];
+    let a = [0, -3, 0, 15, 48];
     let e = find_extrema(&a);
     assert_eq!(*e.least, -3);
     assert_eq!(*e.greatest, 48);
+}
+
+fn ex_9_9() {
+    struct Polynomial<const N: usize> {
+        coefficients: [f64; N],
+    }
+
+    impl<const N: usize> Polynomial<N> {
+        fn new(coefficients: [f64; N]) -> Polynomial<N> {
+            Polynomial { coefficients }
+        }
+
+        fn eval(&self, x: f64) -> f64 {
+            let mut sum = 0.0;
+            for i in (0..N).rev() {
+                sum = self.coefficients[i] + x * sum;
+            }
+            sum
+        }
+    }
+
+    use std::f64::consts::FRAC_PI_2;
+    let sine_poly = Polynomial::new([0.0, 1.0, 0.0, -1.0 / 6.0, 0.0, 1.0 / 120.0]);
+    assert_eq!(sine_poly.eval(0.0), 0.0);
+    assert!((sine_poly.eval(FRAC_PI_2) - 1.).abs() < 0.005);
 }
