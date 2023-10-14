@@ -16,6 +16,7 @@ fn main() {
     ex_9_7();
     ex_9_8();
     ex_9_9();
+    ex_9_10();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -203,4 +204,22 @@ fn ex_9_9() {
     let sine_poly = Polynomial::new([0.0, 1.0, 0.0, -1.0 / 6.0, 0.0, 1.0 / 120.0]);
     assert_eq!(sine_poly.eval(0.0), 0.0);
     assert!((sine_poly.eval(FRAC_PI_2) - 1.).abs() < 0.005);
+}
+
+fn ex_9_10() {
+    #[derive(Debug, Copy, Clone, PartialEq)]
+    struct Point {
+        x: f64,
+        y: f64,
+    }
+    let p = Point { x: 0.0, y: 1.0 };
+    let q = &p;
+    let mut r = p;
+    //r.y *= 2.0;
+    println!("{:?} : {:?} : {:?}", p, q, r);
+    if p == r {
+        println!("p == r");
+    } else {
+        println!("p != r");
+    }
 }
