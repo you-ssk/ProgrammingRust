@@ -17,6 +17,7 @@ fn main() {
     ex_9_8();
     ex_9_9();
     ex_9_10();
+    ex_9_11();
 }
 
 fn new_map(size: (usize, usize), pixels: Vec<u8>) -> grayscale::GrayscaleMap {
@@ -222,4 +223,20 @@ fn ex_9_10() {
     } else {
         println!("p != r");
     }
+}
+
+mod spider;
+use std::cell::RefCell;
+
+fn ex_9_11() {
+    let ref_cell: RefCell<String> = RefCell::new("hello".to_string());
+    {
+        let r = ref_cell.borrow();
+        let count = r.len();
+        assert_eq!(count, 5);
+    }
+
+    let mut w = ref_cell.borrow_mut();
+    w.push_str(" world");
+    println!("{}", w);
 }
