@@ -4,6 +4,7 @@ fn main() {
     ex_10_1_3();
     ex_10_1_4();
     ex_10_2();
+    ex_10_2_2();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -188,4 +189,20 @@ fn ex_10_2() {
 
     let rtf = RoughTime::InTheFuture(TimeUnit::Years, 1);
     println!("{}", rough_time_to_english(rtf));
+}
+
+fn ex_10_2_2() {
+    fn describe_point(x: i32, y: i32) -> &'static str {
+        use std::cmp::Ordering::*;
+        match (x.cmp(&0), y.cmp(&0)) {
+            (Equal, Equal) => "at the origin",
+            (_, Equal) => "on the x axis",
+            (Equal, _) => "on the y axis",
+            (Greater, Greater) => "in the first quadrant",
+            (Less, Greater) => "in the second quadrant",
+            _ => "somewhere else",
+        }
+    }
+    println!("{}", describe_point(0, 0));
+    println!("{}", describe_point(-10, -100));
 }
