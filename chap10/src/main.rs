@@ -1,10 +1,9 @@
-use std::io::Empty;
-
 fn main() {
     ex_10_1();
     ex_10_1_1();
     ex_10_1_3();
     ex_10_1_4();
+    ex_10_2();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -150,4 +149,43 @@ fn ex_10_1_4() {
     }));
 
     println!("{:?}", mars_tree);
+}
+
+fn rough_time_to_english(rt: RoughTime) -> String {
+    match rt {
+        RoughTime::InThePast(TimeUnit::Hours, 1) => {
+            format!("an {} ago", TimeUnit::Hours.plural())
+        }
+        RoughTime::InThePast(units, 1) => format!("a {} ago", units.plural()),
+        RoughTime::InThePast(units, count) => format!("{} {} ago", count, units.plural()),
+        RoughTime::JustNow => format!("Just Now"),
+        RoughTime::InTheFuture(TimeUnit::Hours, 1) => {
+            format!("an {} from now", TimeUnit::Hours.plural())
+        }
+        RoughTime::InTheFuture(units, 1) => format!("a {} from now", units.plural()),
+        RoughTime::InTheFuture(units, count) => format!("{} {} from now", count, units.plural()),
+    }
+}
+
+fn ex_10_2() {
+    let rtp = RoughTime::InThePast(TimeUnit::Hours, 4);
+    println!("{}", rough_time_to_english(rtp));
+
+    let rtp = RoughTime::InThePast(TimeUnit::Months, 1);
+    println!("{}", rough_time_to_english(rtp));
+
+    let rtp = RoughTime::InThePast(TimeUnit::Hours, 1);
+    println!("{}", rough_time_to_english(rtp));
+
+    let rtj = RoughTime::JustNow;
+    println!("{}", rough_time_to_english(rtj));
+
+    let rtf = RoughTime::InTheFuture(TimeUnit::Months, 3);
+    println!("{}", rough_time_to_english(rtf));
+
+    let rtf = RoughTime::InTheFuture(TimeUnit::Hours, 1);
+    println!("{}", rough_time_to_english(rtf));
+
+    let rtf = RoughTime::InTheFuture(TimeUnit::Years, 1);
+    println!("{}", rough_time_to_english(rtf));
 }
