@@ -150,6 +150,4 @@ fn ex_10_1_4() {
     }));
 
     println!("{:?}", mars_tree);
-
-    //let mut bt = BinaryTree::Empty;
 }
