@@ -1,6 +1,10 @@
+use std::io::Empty;
+
 fn main() {
     ex_10_1();
     ex_10_1_1();
+    ex_10_1_3();
+    ex_10_1_4();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -99,4 +103,53 @@ fn ex_10_1_1() {
         radius: 1.0,
     };
     println!("{:?}", unit_sphere);
+}
+
+fn ex_10_1_3() {
+    use std::collections::HashMap;
+    enum Json {
+        Null,
+        Boolean(bool),
+        Number(f64),
+        String(String),
+        Array(Vec<Json>),
+        Object(Box<HashMap<String, Json>>),
+    }
+}
+#[derive(Debug)]
+enum BinaryTree<T> {
+    Empty,
+    NonEmpty(Box<TreeNode<T>>),
+}
+
+#[derive(Debug)]
+struct TreeNode<T> {
+    element: T,
+    left: BinaryTree<T>,
+    right: BinaryTree<T>,
+}
+
+fn ex_10_1_4() {
+    use self::BinaryTree::*;
+    let jupiter_tree = NonEmpty(Box::new(TreeNode {
+        element: "Jupiter",
+        left: Empty,
+        right: Empty,
+    }));
+
+    let mercury_tree = NonEmpty(Box::new(TreeNode {
+        element: "Mercury",
+        left: Empty,
+        right: Empty,
+    }));
+
+    let mars_tree = NonEmpty(Box::new(TreeNode {
+        element: "Mars",
+        left: jupiter_tree,
+        right: mercury_tree,
+    }));
+
+    println!("{:?}", mars_tree);
+
+    //let mut bt = BinaryTree::Empty;
 }
