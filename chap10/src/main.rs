@@ -5,6 +5,7 @@ fn main() {
     ex_10_1_4();
     ex_10_2();
     ex_10_2_2();
+    ex_10_2_3();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -205,4 +206,38 @@ fn ex_10_2_2() {
     }
     println!("{}", describe_point(0, 0));
     println!("{}", describe_point(-10, -100));
+}
+
+fn ex_10_2_3() {
+    // 配列パターン
+    fn hsl_to_rgb(hsl: [u8; 3]) -> [u8; 3] {
+        match hsl {
+            [_, _, 0] => [0, 0, 0],
+            [_, _, 255] => [255, 255, 255],
+            [_, _, _] => hsl, // fake
+        }
+    }
+
+    // スライスパターン
+    fn greet_people(names: &[&str]) {
+        match names {
+            [] => {
+                println!("Hello, nobody.")
+            }
+            [a] => {
+                println!("Hello, {}.", a)
+            }
+            [a, b] => {
+                println!("Hello, {} and {}.", a, b)
+            }
+            [a, .., b] => {
+                println!("Hello, everyone from {} to {}", a, b)
+            }
+        }
+    }
+    let names = ["A", "B", "C"];
+    greet_people(&names);
+    greet_people(&[]);
+    greet_people(&["Yo"]);
+    greet_people(&["Sasaki", "Yo"]);
 }
