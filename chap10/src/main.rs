@@ -6,6 +6,7 @@ fn main() {
     ex_10_2();
     ex_10_2_2();
     ex_10_2_3();
+    ex_10_2_6();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -240,4 +241,14 @@ fn ex_10_2_3() {
     greet_people(&[]);
     greet_people(&["Yo"]);
     greet_people(&["Sasaki", "Yo"]);
+}
+
+fn ex_10_2_6() {
+    //let mut chars = ['\n', '\r', 'c'].iter().peekable();
+    let mut chars = "\nabcdefg".chars().peekable();
+    let at_end = match chars.peek() {
+        Some(&'\r' | &'\n') | None => true,
+        _ => false,
+    };
+    println!("{}", at_end);
 }
