@@ -1,3 +1,5 @@
+use serde_json::value;
+
 fn main() {
     ex_10_1();
     ex_10_1_1();
@@ -8,6 +10,7 @@ fn main() {
     ex_10_2_3();
     ex_10_2_6();
     ex_10_2_8();
+    ex_10_2_9();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -298,4 +301,35 @@ fn ex_10_2_8() {
     println!("{:?}", p1);
     let Point3d { x, y, z } = p1;
     println!("Point3d({}, {}, {})", x, y, z);
+}
+
+impl<T: Ord> BinaryTree<T> {
+    fn add(&mut self, value: T) {
+        match *self {
+            BinaryTree::Empty => {
+                *self = BinaryTree::NonEmpty(Box::new(TreeNode {
+                    element: value,
+                    left: BinaryTree::Empty,
+                    right: BinaryTree::Empty,
+                }))
+            }
+            BinaryTree::NonEmpty(ref mut node) => {
+                if value <= node.element {
+                    node.left.add(value);
+                } else {
+                    node.right.add(value);
+                }
+            }
+        }
+    }
+}
+
+fn ex_10_2_9() {
+    let mut tree = BinaryTree::Empty;
+    tree.add("Mercury");
+    tree.add("Venus");
+    tree.add("Jupiter");
+    tree.add("Earth");
+    tree.add("Mars");
+    println!("{:?}", tree);
 }
