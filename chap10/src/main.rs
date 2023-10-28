@@ -7,6 +7,7 @@ fn main() {
     ex_10_2_2();
     ex_10_2_3();
     ex_10_2_6();
+    ex_10_2_8();
 }
 
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
@@ -251,4 +252,50 @@ fn ex_10_2_6() {
         _ => false,
     };
     println!("{}", at_end);
+}
+
+fn ex_10_2_8() {
+    struct Track {
+        album: String,
+        track_number: i32,
+        title: String,
+    };
+
+    struct Song {
+        album: String,
+        track_number: i32,
+        title: String,
+        writer: String,
+        composer: String,
+    };
+
+    let song = Song {
+        album: "an album".to_string(),
+        track_number: 9,
+        title: "a song".to_string(),
+        writer: "famous writer.".to_string(),
+        composer: "great composer".to_string(),
+    };
+    let Song {
+        album,
+        track_number,
+        writer,
+        ..
+    } = song;
+    println!("{} {} {}", album, track_number, writer);
+
+    #[derive(Debug)]
+    struct Point3d {
+        x: f32,
+        y: f32,
+        z: f32,
+    };
+    let p1 = Point3d {
+        x: 0.0,
+        y: 1.0,
+        z: 2.0,
+    };
+    println!("{:?}", p1);
+    let Point3d { x, y, z } = p1;
+    println!("Point3d({}, {}, {})", x, y, z);
 }
