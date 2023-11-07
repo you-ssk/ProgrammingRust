@@ -26,4 +26,13 @@ fn ex_11_1() {
     let mut buf: Vec<u8> = vec![];
     buf.write_all(b"hello").unwrap();
     println!("{:?}", buf);
+
+    //11.1.1
+    let mut buf: Vec<u8> = vec![];
+    // let writer: dyn Write = buf;
+    let writer: &mut dyn Write = &mut buf;
+
+    use std::fs::File;
+    let mut local_file = File::create("hello.txt").unwrap();
+    let w: Box<dyn Write> = Box::new(local_file);
 }
