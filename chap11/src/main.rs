@@ -93,5 +93,10 @@ fn ex_11_1_2() -> std::io::Result<()> {
         println!("dot product = {}", dot);
     }
 
+    {
+        let mut sink = std::io::sink();
+        say_hello(&mut sink)?;
+    }
+
     Ok(())
 }
