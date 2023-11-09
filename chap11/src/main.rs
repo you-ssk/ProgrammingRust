@@ -5,6 +5,7 @@ fn main() {
     ex_11_0();
     ex_11_1();
     ex_11_1_2();
+    ex_11_2_2();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -101,7 +102,6 @@ fn ex_11_1_2() -> std::io::Result<()> {
     Ok(())
 }
 
-// don't do anything.
 fn ex_11_2_2() {
     trait IsEmoji {
         fn is_emoji(&self) -> bool;
@@ -122,4 +122,19 @@ fn ex_11_2_2() {
             Ok(())
         }
     }
+
+    use serde::Serialize;
+    use serde_json;
+    use std::fs::File;
+
+    pub fn save_configuration(config: &HashMap<String, String>) -> std::io::Result<()> {
+        let writer = File::create("test_config.json")?;
+        let mut serializer = serde_json::Serializer::new(writer);
+        config.serialize(&mut serializer)?;
+        Ok(())
+    }
+
+    let mut h: HashMap<String, String> = HashMap::new();
+    h.insert("A".to_string(), "aaaaaa".to_string());
+    let _ = save_configuration(&h);
 }
