@@ -1,4 +1,4 @@
-use std::io::Write;
+use std::io::{self, Write};
 
 fn main() {
     println!("Hello, world!");
@@ -99,4 +99,27 @@ fn ex_11_1_2() -> std::io::Result<()> {
     }
 
     Ok(())
+}
+
+// don't do anything.
+fn ex_11_2_2() {
+    trait IsEmoji {
+        fn is_emoji(&self) -> bool;
+    }
+    impl IsEmoji for char {
+        fn is_emoji(&self) -> bool {
+            true
+        }
+    }
+
+    struct HtmlDocument {}
+    trait WriteHtml {
+        fn write_html(&mut self, html: &HtmlDocument) -> io::Result<()>;
+    }
+
+    impl<W: Write> WriteHtml for W {
+        fn write_html(&mut self, _html: &HtmlDocument) -> io::Result<()> {
+            Ok(())
+        }
+    }
 }
