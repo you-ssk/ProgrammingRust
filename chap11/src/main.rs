@@ -138,3 +138,17 @@ fn ex_11_2_2() {
     h.insert("A".to_string(), "aaaaaa".to_string());
     let _ = save_configuration(&h);
 }
+
+fn ex_11_2_3() {
+    trait Spliceable {
+        fn splice(&self, other: &Self) -> Self;
+    }
+
+    struct Example {}
+    impl Spliceable for Example {
+        fn splice(&self, other: &Self) -> Self {
+            let r = Example {};
+            r
+        }
+    }
+}
