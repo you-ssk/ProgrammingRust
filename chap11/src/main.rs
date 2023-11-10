@@ -6,6 +6,7 @@ fn main() {
     ex_11_1();
     ex_11_1_2();
     ex_11_2_2();
+    ex_11_3();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
