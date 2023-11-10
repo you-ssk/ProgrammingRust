@@ -152,3 +152,14 @@ fn ex_11_2_3() {
         }
     }
 }
+
+fn ex_11_3(){
+    let s = "hello".to_string();
+    let s2 = str::to_string("hello");
+    ToString::to_string("hello");
+    <str as ToString>::to_string("hello"); // fully qualified
+
+    let zero = 0;
+    //println!("{}",zero.abs()); //error[E0689]: can't call method `abs` on ambiguous numeric type `{integer}`
+    println!("{}",i64::abs(zero));
+}
