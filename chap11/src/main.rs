@@ -8,6 +8,7 @@ fn main() {
     ex_11_2_2();
     ex_11_3();
     ex_11_4_1();
+    ex_11_4_2();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -49,6 +50,7 @@ fn say_hello_generic<W: Write>(out: &mut W) -> std::io::Result<()> {
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::hash::Hash;
+use std::ops::Mul;
 
 fn top_ten<T: Debug + Hash + Eq>(values: &Vec<T>) {
     let mut h: HashMap<&T, i32> = HashMap::new();
@@ -184,4 +186,14 @@ fn ex_11_4_1() {
             println!("{}: {:?}", index, value);
         }
     }
+}
+
+fn ex_11_4_2() {
+    use rand::Rng;
+    let mut rng = rand::thread_rng();
+    let n1: u8 = rng.gen();
+    let n2: u8 = rng.gen();
+    let n3 = n1.saturating_mul(n2);
+    //let n3 = n1.mul(n2);
+    println!("{} * {} = {:?}", n1, n2, n3);
 }
