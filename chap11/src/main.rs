@@ -7,6 +7,7 @@ fn main() {
     ex_11_1_2();
     ex_11_2_2();
     ex_11_3();
+    ex_11_4_1();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -154,7 +155,7 @@ fn ex_11_2_3() {
     }
 }
 
-fn ex_11_3(){
+fn ex_11_3() {
     let s = "hello".to_string();
     let s2 = str::to_string("hello");
     ToString::to_string("hello");
@@ -162,5 +163,25 @@ fn ex_11_3(){
 
     let zero = 0;
     //println!("{}",zero.abs()); //error[E0689]: can't call method `abs` on ambiguous numeric type `{integer}`
-    println!("{}",i64::abs(zero));
+    println!("{}", i64::abs(zero));
+}
+
+fn ex_11_4_1() {
+    fn collect_into_vector<I: Iterator>(iter: I) -> Vec<I::Item> {
+        let mut result = Vec::new();
+        for value in iter {
+            result.push(value);
+        }
+        result
+    }
+
+    fn dump<I>(iter: I)
+    where
+        I: Iterator,
+        I::Item: Debug,
+    {
+        for (index, value) in iter.enumerate() {
+            println!("{}: {:?}", index, value);
+        }
+    }
 }
