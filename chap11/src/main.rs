@@ -193,7 +193,7 @@ fn ex_11_4_2() {
     let mut rng = rand::thread_rng();
     let n1: u8 = rng.gen();
     let n2: u8 = rng.gen();
-    let n3 = n1.saturating_mul(n2);
-    //let n3 = n1.mul(n2);
+    //let n3 = n1.saturating_mul(n2);
+    let n3 = n1.mul(n2);
     println!("{} * {} = {:?}", n1, n2, n3);
 }
