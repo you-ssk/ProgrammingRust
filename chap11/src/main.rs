@@ -9,6 +9,7 @@ fn main() {
     ex_11_3();
     ex_11_4_1();
     ex_11_4_2();
+    ex_11_4_3();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -196,4 +197,27 @@ fn ex_11_4_2() {
     let n3 = n1.saturating_mul(n2);
     //let n3 = n1.mul(n2);
     println!("{} * {} = {:?}", n1, n2, n3);
+}
+
+fn ex_11_4_3() {
+    use std::iter;
+    use std::vec::IntoIter;
+
+    fn cyclical_zip(v: Vec<u8>, u: Vec<u8>) -> iter::Cycle<iter::Chain<IntoIter<u8>, IntoIter<u8>>> {
+        v.into_iter().chain(u.into_iter()).cycle()
+    }
+
+    fn cyclical_zip2(v: Vec<u8>, u: Vec<u8>) -> Box<dyn Iterator<Item=u8>> {
+        Box::new(v.into_iter().chain(u.into_iter()).cycle())
+    }
+
+    fn cyclical_zip3(v: Vec<u8>, u: Vec<u8>) -> impl Iterator<Item=u8> {
+        v.into_iter().chain(u.into_iter()).cycle()
+    }
+    let v: Vec<u8> = vec![1,2,3,4,5];
+    let u: Vec<u8> = vec![101,102,103,104,105];
+    let w = cyclical_zip3(v, u);
+    for e in w.take(20) {
+        println!("{}", e);
+    }
 }
