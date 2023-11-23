@@ -10,6 +10,7 @@ fn main() {
     ex_11_4_1();
     ex_11_4_2();
     ex_11_4_3();
+    ex_11_4_4();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -195,29 +196,93 @@ fn ex_11_4_2() {
     let n1: u8 = rng.gen();
     let n2: u8 = rng.gen();
     //let n3 = n1.saturating_mul(n2);
-    let n3 = n1.mul(n2);
-    println!("{} * {} = {:?}", n1, n2, n3);
+    //let n3 = n1.mul(n2);
+    //println!("{} * {} = {:?}", n1, n2, n3);
 }
 
 fn ex_11_4_3() {
     use std::iter;
     use std::vec::IntoIter;
 
-    fn cyclical_zip(v: Vec<u8>, u: Vec<u8>) -> iter::Cycle<iter::Chain<IntoIter<u8>, IntoIter<u8>>> {
+    fn cyclical_zip(
+        v: Vec<u8>,
+        u: Vec<u8>,
+    ) -> iter::Cycle<iter::Chain<IntoIter<u8>, IntoIter<u8>>> {
         v.into_iter().chain(u.into_iter()).cycle()
     }
 
-    fn cyclical_zip2(v: Vec<u8>, u: Vec<u8>) -> Box<dyn Iterator<Item=u8>> {
+    fn cyclical_zip2(v: Vec<u8>, u: Vec<u8>) -> Box<dyn Iterator<Item = u8>> {
         Box::new(v.into_iter().chain(u.into_iter()).cycle())
     }
 
-    fn cyclical_zip3(v: Vec<u8>, u: Vec<u8>) -> impl Iterator<Item=u8> {
+    fn cyclical_zip3(v: Vec<u8>, u: Vec<u8>) -> impl Iterator<Item = u8> {
         v.into_iter().chain(u.into_iter()).cycle()
     }
-    let v: Vec<u8> = vec![1,2,3,4,5];
-    let u: Vec<u8> = vec![101,102,103,104,105];
+    let v: Vec<u8> = vec![1, 2, 3, 4, 5];
+    let u: Vec<u8> = vec![101, 102, 103, 104, 105];
     let w = cyclical_zip3(v, u);
     for e in w.take(20) {
         println!("{}", e);
+    }
+}
+
+fn ex_11_4_4() {
+    trait Greet {
+        const GREETING: &'static str = "Hello";
+        fn greet(&self) -> String;
+    }
+
+    struct Example {}
+
+    impl Greet for Example {
+        fn greet(&self) -> String {
+            Self::GREETING.to_string()
+        }
+    }
+
+    let e = Example {};
+    println!("Example {}", e.greet());
+
+    trait Float {
+        const ZERO: Self;
+        const ONE: Self;
+    }
+
+    impl Float for f32 {
+        const ZERO: f32 = 0.0;
+        const ONE: f32 = 1.0;
+    }
+    impl Float for f64 {
+        const ZERO: f64 = 0.0;
+        const ONE: f64 = 2.0;
+    }
+
+    use std::ops::Add;
+    fn add_one<T: Float + Add<Output = T>>(value: T) -> T {
+        value + T::ONE
+    }
+    {
+        let n: f32 = 100.0;
+        let m = add_one(n);
+        println!("{} {}", n, m);
+    }
+    {
+        let n: f64 = 100.0;
+        let m = add_one(n);
+        println!("{} {}", n, m);
+    }
+
+    fn fib<T: Float + Add<Output = T>>(n: usize) -> T {
+        match n {
+            0 => T::ZERO,
+            1 => T::ONE,
+            n => fib::<T>(n - 1) + fib::<T>(n - 2),
+        }
+    }
+    {
+        for i in 1usize..10 {
+            println!("{}", fib::<f32>(i));
+        }
+        
     }
 }
