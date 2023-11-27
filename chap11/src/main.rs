@@ -11,6 +11,7 @@ fn main() {
     ex_11_4_2();
     ex_11_4_3();
     ex_11_4_4();
+    ex_11_5();
 }
 
 fn say_hello(out: &mut dyn Write) -> std::io::Result<()> {
@@ -283,6 +284,19 @@ fn ex_11_4_4() {
         for i in 1usize..10 {
             println!("{}", fib::<f32>(i));
         }
-        
     }
+}
+
+fn ex_11_5() {
+    fn dot(v1: &[i64], v2: &[i64]) -> i64 {
+        let mut total = 0;
+        for i  in 0..v1.len() {
+            total = total + v1[i] * v2[i];
+        }
+        total
+    }
+    let v1: [i64; 4] = [1,2,3,4];
+    let v2: [i64; 4] = [1,1,1,1];
+    let d = dot(&v1, &v2);
+    println!("dot = {}", d);
 }
