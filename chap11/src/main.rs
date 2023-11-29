@@ -288,15 +288,28 @@ fn ex_11_4_4() {
 }
 
 fn ex_11_5() {
-    fn dot(v1: &[i64], v2: &[i64]) -> i64 {
-        let mut total = 0;
-        for i  in 0..v1.len() {
+    // fn dot(v1: &[i64], v2: &[i64]) -> i64 {
+    //     let mut total = 0;
+    //     for i  in 0..v1.len() {
+    //         total = total + v1[i] * v2[i];
+    //     }
+    //     total
+    // }
+
+    use std::ops::{Add, Mul};
+    //fn dot<N: Add<Output = N> + Mul<Output = N> + Default + Copy>(v1: &[N], v2: &[N]) -> N {
+    fn dot<N>(v1: &[N], v2: &[N]) -> N
+    where
+        N: Add<Output = N> + Mul<Output = N> + Default + Copy,
+    {
+        let mut total: N = N::default();
+        for i in 0..v1.len() {
             total = total + v1[i] * v2[i];
         }
         total
     }
-    let v1: [i64; 4] = [1,2,3,4];
-    let v2: [i64; 4] = [1,1,1,1];
+    let v1: [i64; 4] = [1, 2, 3, 4];
+    let v2: [i64; 4] = [1, 1, 1, 1];
     let d = dot(&v1, &v2);
     println!("dot = {}", d);
 }
