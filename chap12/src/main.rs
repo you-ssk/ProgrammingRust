@@ -15,6 +15,7 @@ fn main() {
 
     ex_12_1();
     ex_12_1_1();
+    ex_12_1_2();
 }
 
 use std::{ascii::EscapeDefault, ops::Add};
@@ -30,7 +31,7 @@ fn ex_12_1() {
     println!("{}", z);
 }
 
-use std::ops::Neg;
+use std::ops::{BitAnd, BitOr, BitXor, Neg};
 
 // impl<T> Neg for Complex<T>
 // where
@@ -50,4 +51,27 @@ fn ex_12_1_1() {
     println!("{}", z);
     z = z.neg();
     println!("{}", z);
+}
+
+use std::fmt::Write as _;
+
+fn ex_12_1_2() {
+    let mut x = 0b101;
+    let mut y = 0b010;
+    x = x.add(y);
+    println!("{:b} {:b}", x, y);
+    x = 10;
+    y = 5;
+    println!("{:b} {:o} {:x} {:X}", x, x, x, x);
+    println!(
+        "{:b} {:b} {:b} {:b}",
+        x.bitand(y),
+        x.bitor(y),
+        (x << 1).bitxor(y),
+        x << 1
+    );
+
+    let mut s = String::new();
+    write!(&mut s, "{} {}", "abc", 123).unwrap(); // uses fmt::Write::write_fmt
+    println!("{}", s);
 }
