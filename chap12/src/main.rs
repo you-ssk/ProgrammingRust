@@ -32,7 +32,7 @@ fn ex_12_1() {
     println!("{}", z);
 }
 
-use std::ops::{BitAnd, BitOr, BitXor, Neg};
+use std::ops::{BitAnd, BitOr, BitXor, Neg, AddAssign};
 
 // impl<T> Neg for Complex<T>
 // where
@@ -87,6 +87,7 @@ fn ex_12_1_3() {
         let mut z = Complex { re: 0.5, im: 0.5 };
         let x = Complex{re:0.25, im: 0.01};
         z += x;
+        z.add_assign(x);
         println!("{}", z);
     }
 }
