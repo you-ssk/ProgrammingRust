@@ -16,6 +16,7 @@ fn main() {
     ex_12_1();
     ex_12_1_1();
     ex_12_1_2();
+    ex_12_1_3();
 }
 
 use std::{ascii::EscapeDefault, ops::Add};
@@ -74,4 +75,18 @@ fn ex_12_1_2() {
     let mut s = String::new();
     write!(&mut s, "{} {}", "abc", 123).unwrap(); // uses fmt::Write::write_fmt
     println!("{}", s);
+}
+
+fn ex_12_1_3() {
+    let mut x = 3;
+    let y = 4;
+    x += y;
+    println!("x:{} y:{}", x, y);
+
+    {
+        let mut z = Complex { re: 0.5, im: 0.5 };
+        let x = Complex{re:0.25, im: 0.01};
+        z += x;
+        println!("{}", z);
+    }
 }
