@@ -17,6 +17,7 @@ fn main() {
     ex_12_1_1();
     ex_12_1_2();
     ex_12_1_3();
+    ex_12_2();
 }
 
 use std::{ascii::EscapeDefault, ops::Add};
@@ -32,7 +33,7 @@ fn ex_12_1() {
     println!("{}", z);
 }
 
-use std::ops::{BitAnd, BitOr, BitXor, Neg, AddAssign};
+use std::ops::{AddAssign, BitAnd, BitOr, BitXor, Neg};
 
 // impl<T> Neg for Complex<T>
 // where
@@ -85,9 +86,47 @@ fn ex_12_1_3() {
 
     {
         let mut z = Complex { re: 0.5, im: 0.5 };
-        let x = Complex{re:0.25, im: 0.01};
+        let x = Complex { re: 0.25, im: 0.01 };
         z += x;
         z.add_assign(x);
         println!("{}", z);
+    }
+}
+
+fn ex_12_2() {
+    let x = true;
+    let mut y = true;
+    assert_eq!(x == y, x.eq(&y));
+    y = false;
+    assert_eq!(x != y, x.ne(&y));
+
+    {
+        let x = Complex { re: 5, im: 2 };
+        let y = Complex { re: 2, im: 5 };
+
+        println!("{}", x.eq(&y));
+        assert_eq!(x * y, Complex { re: 0, im: 29 });
+    }
+    {
+        let s = "d\x6fv\x65t\x61i\x6c".to_string();
+        let t = "\x64o\x76e\x74a\x69l".to_string();
+        println!("{} {}", s, t);
+        assert!(s == t);
+        assert_eq!(format!("{} {}", s, t), "dovetail dovetail");
+
+        assert!("ungula" != "ungulate");
+        assert!("ungula".ne("ungulate"));
+    }
+    {
+        println!("{}", 0.0 / 0.0);
+        assert!(f64::is_nan(0.0 / 0.0));
+        assert_eq!(0.0 / 0.0 == 0.0 / 0.0, false);
+        assert_eq!(0.0 / 0.0 != 0.0 / 0.0, true);
+
+        assert_eq!(0.0 / 0.0 < 0.0 / 0.0, false);
+        assert_eq!(0.0 / 0.0 > 0.0 / 0.0, false);
+        assert_eq!(0.0 / 0.0 <= 0.0 / 0.0, false);
+        assert_eq!(0.0 / 0.0 >= 0.0 / 0.0, false);
+        println!("{}", f64::NAN);
     }
 }
