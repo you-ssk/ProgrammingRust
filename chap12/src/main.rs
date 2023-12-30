@@ -18,8 +18,10 @@ fn main() {
     ex_12_1_2();
     ex_12_1_3();
     ex_12_2();
+    ex_12_3();
 }
 
+use std::cmp::Reverse;
 use std::{ascii::EscapeDefault, ops::Add};
 
 fn ex_12_1() {
@@ -128,5 +130,68 @@ fn ex_12_2() {
         assert_eq!(0.0 / 0.0 <= 0.0 / 0.0, false);
         assert_eq!(0.0 / 0.0 >= 0.0 / 0.0, false);
         println!("{}", f64::NAN);
+    }
+}
+
+fn ex_12_3() {
+    #[derive(Debug, PartialEq)]
+    struct Interval<T> {
+        lower: T,
+        upper: T,
+    }
+    use std::cmp::{Ordering, PartialOrd};
+
+    impl<T: PartialOrd> PartialOrd<Interval<T>> for Interval<T> {
+        fn partial_cmp(&self, other: &Interval<T>) -> Option<Ordering> {
+            if self == other {
+                Some(Ordering::Equal)
+            } else if self.lower >= other.upper {
+                Some(Ordering::Greater)
+            } else if self.upper <= other.lower {
+                Some(Ordering::Less)
+            } else {
+                None
+            }
+        }
+    }
+
+    let x = Interval {
+        lower: 10,
+        upper: 20,
+    };
+    let y = Interval {
+        lower: 20,
+        upper: 40,
+    };
+    println!("{:?} {:?}", x, y);
+    assert!(x < y);
+    assert!(Interval { lower: 7, upper: 8 } >= Interval { lower: 0, upper: 1 });
+    assert!(Interval { lower: 7, upper: 8 } <= Interval { lower: 7, upper: 8 });
+
+    let left = Interval {
+        lower: 10,
+        upper: 30,
+    };
+    let right = Interval {
+        lower: 20,
+        upper: 30,
+    };
+    assert!(!(left < right));
+    assert!(!(left >= right));
+
+    {
+        let mut intervals = [
+            Interval{lower: 1, upper: 3},
+            Interval{lower: -1, upper: 2},
+            Interval{lower: 4, upper:8},
+            Interval{lower: 0, upper:4},
+        ];
+        println!("{:?}", intervals);
+        intervals.sort_by_key(|i| i.upper);
+        println!("{:?}", intervals);
+        intervals.sort_by_key(|i| i.lower);
+        println!("{:?}", intervals);
+        intervals.sort_by_key(|i| Reverse(i.lower));
+        println!("{:?}", intervals);
     }
 }
