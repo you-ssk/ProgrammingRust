@@ -1,0 +1,5 @@
+{
+    "lldb.launch.sourceMap": {
+        "/rustc/82e1608dfa6e0b5569232559e3d385fea5a93112": "${userHome}\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\src\\rust"
+    }
+}

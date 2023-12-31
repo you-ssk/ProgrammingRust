@@ -19,6 +19,7 @@ fn main() {
     ex_12_1_3();
     ex_12_2();
     ex_12_3();
+    ex_12_4();
 }
 
 use std::cmp::Reverse;
@@ -181,10 +182,13 @@ fn ex_12_3() {
 
     {
         let mut intervals = [
-            Interval{lower: 1, upper: 3},
-            Interval{lower: -1, upper: 2},
-            Interval{lower: 4, upper:8},
-            Interval{lower: 0, upper:4},
+            Interval { lower: 1, upper: 3 },
+            Interval {
+                lower: -1,
+                upper: 2,
+            },
+            Interval { lower: 4, upper: 8 },
+            Interval { lower: 0, upper: 4 },
         ];
         println!("{:?}", intervals);
         intervals.sort_by_key(|i| i.upper);
@@ -193,5 +197,75 @@ fn ex_12_3() {
         println!("{:?}", intervals);
         intervals.sort_by_key(|i| Reverse(i.lower));
         println!("{:?}", intervals);
+    }
+}
+
+fn ex_12_4() {
+    use std::collections::HashMap;
+    let mut m = HashMap::new();
+    m.insert("十", 10);
+    m.insert("百", 100);
+    m.insert("千", 1000);
+    m.insert("万", 10000);
+    m.insert("億", 100000);
+
+    println!("{:?}", m);
+    assert_eq!(m["十"], 10);
+    assert_eq!(m["万"], 10000);
+
+    use std::ops::Index;
+    assert_eq!(*m.index("百"), 100);
+    assert_eq!(*m.index("億"), 100000);
+
+    let mut desserts = vec!["Howalon".to_string(), "Soan papdi".to_string()];
+    desserts[0].push_str(" (fictrional)");
+    desserts[1].push_str(" (real)");
+    println!("{:?}", desserts);
+
+    use std::ops::IndexMut;
+    (*desserts.index_mut(0)).push_str(" (fictional)");
+    desserts.index_mut(1).push_str(" (real)");
+
+    println!("{:?}", desserts);
+
+    {
+        struct Image<P> {
+            width: usize,
+            pixels: Vec<P>,
+        }
+        impl<P: Default + Copy> Image<P> {
+            fn new(width: usize, height: usize) -> Image<P> {
+                Image {
+                    width,
+                    pixels: vec![P::default(); width * height],
+                }
+            }
+        }
+        impl<P> std::ops::Index<usize> for Image<P> {
+            type Output = [P];
+            fn index(&self, row: usize) -> &[P] {
+                let start = row * self.width;
+                &self.pixels[start..start + self.width]
+            }
+        }
+        impl<P> std::ops::IndexMut<usize> for Image<P> {
+            fn index_mut(&mut self, row: usize) -> &mut Self::Output {
+                let start = row * self.width;
+                &mut self.pixels[start..start + self.width]
+            }
+        }
+
+        {
+            let mut image = Image::<u8>::new(100, 80);
+            println!("{}", image[1][2]);
+            image[1][2] = 8;
+            println!("{}", image[1][2]);
+        }
+        {
+            let mut image = Image::<u8>::new(0x100, 0x80);
+            println!("{}", image[0x10][0x20]);
+            image[1][2] = 0xf;
+            println!("{}", image[0x10][0x20]);
+        }
     }
 }
