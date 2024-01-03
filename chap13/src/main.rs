@@ -1,8 +1,11 @@
+use std::io::Read;
+
 fn main() {
     ex_13_1();
     ex_13_2();
     ex_13_5();
     ex_13_6();
+    ex_13_7();
 }
 
 fn ex_13_1() {
@@ -117,4 +120,11 @@ fn ex_13_6() {
     assert_eq!(lower, "reat eacher nizuka");
     println!("{:?}", upper);
     println!("{:?}", lower);
+}
+
+fn ex_13_7(){
+    let mut f = std::fs::File::open(".gitignore").unwrap();
+    let mut buf = String::new();
+    f.read_to_string(&mut buf).unwrap();
+    println!("{}", buf);
 }
