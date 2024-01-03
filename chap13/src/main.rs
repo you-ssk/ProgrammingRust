@@ -2,6 +2,7 @@ fn main() {
     ex_13_1();
     ex_13_2();
     ex_13_5();
+    ex_13_6();
 }
 
 fn ex_13_1() {
@@ -97,4 +98,23 @@ fn ex_13_5() {
         show_it_generic(&*s);
         show_it_generic(&s as &str);
     }
+}
+
+fn ex_13_6() {
+    use std::collections::HashSet;
+    let squares = [4, 9, 16, 25, 36, 49, 64];
+    let (powers_of_two, impure): (HashSet<i32>, HashSet<i32>) =
+        squares.iter().partition(|&n| n & (n - 1) == 0);
+    assert_eq!(powers_of_two.len(), 3);
+    assert_eq!(impure.len(), 4);
+    println!("{:?}", powers_of_two);
+    println!("{:?}", impure);
+
+    let (upper, lower): (String, String) = "Great Teacher Onizuka"
+        .chars()
+        .partition(|&c| c.is_uppercase());
+    assert_eq!(upper, "GTO");
+    assert_eq!(lower, "reat eacher nizuka");
+    println!("{:?}", upper);
+    println!("{:?}", lower);
 }
