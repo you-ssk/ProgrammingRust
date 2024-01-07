@@ -6,6 +6,7 @@ fn main() {
     ex_13_5();
     ex_13_6();
     ex_13_7();
+    ex_13_9();
 }
 
 fn ex_13_1() {
@@ -122,9 +123,31 @@ fn ex_13_6() {
     println!("{:?}", lower);
 }
 
-fn ex_13_7(){
+fn ex_13_7() {
     let mut f = std::fs::File::open(".gitignore").unwrap();
     let mut buf = String::new();
     f.read_to_string(&mut buf).unwrap();
     println!("{}", buf);
+}
+
+fn ex_13_9() {
+    use std::net::Ipv4Addr;
+    fn ping<A>(address: A) -> std::io::Result<bool>
+    where
+        A: Into<Ipv4Addr>,
+    {
+        let ipv4_address = address.into();
+        println!("{}", ipv4_address);
+        Result::Ok(true)
+    }
+    println!("{:?}", ping(Ipv4Addr::new(23, 21, 68, 141)));
+    println!("{:?}", ping([66, 146, 219, 98]));
+    println!("{:?}", ping(0xd07eb94_u32));
+    let addr1 = Ipv4Addr::from([66, 146, 219, 98]);
+    let addr2 = Ipv4Addr::from(0xd07eb94_u32);
+    println!("{:?}, {:?}", addr1, addr2);
+
+    let huge = 2_000_000_000_000i64;
+    let smaller = huge as i32;
+    println!("{}", smaller);
 }
