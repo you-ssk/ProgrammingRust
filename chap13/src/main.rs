@@ -7,6 +7,7 @@ fn main() {
     ex_13_6();
     ex_13_7();
     ex_13_9();
+    ex_13_10();
 }
 
 fn ex_13_1() {
@@ -150,4 +151,19 @@ fn ex_13_9() {
     let huge = 2_000_000_000_000i64;
     let smaller = huge as i32;
     println!("{}", smaller);
+}
+
+fn ex_13_10() {
+    let huge = 2_000_000_000_000i64;
+    {
+        let smaller: i32 = huge.try_into().unwrap_or(i32::MAX);
+        println!("{}", smaller);
+    }
+    {
+        let huge = -2_000_000_000_000i64;
+        let smaller: i32 =
+            huge.try_into()
+                .unwrap_or_else(|_| if huge >= 0 { i32::MAX } else { i32::MIN });
+        println!("{}", smaller);
+    }
 }
