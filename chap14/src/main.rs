@@ -113,6 +113,8 @@ fn main() {
     limit = 1.5;
     let n = count_selected_cities(&cities, |city| city.monster_attack_risk > limit);
     println!("monster risk city : limit = {}, {}", limit, n);
+
+    ex_14_4();
 }
 
 fn ex_14_1() {
@@ -160,4 +162,29 @@ fn ex_14_1() {
     let sorted = start_sorting_thread(cities, Statistic::Population).join();
 
     println!("{:?}", sorted.ok().unwrap());
+}
+
+fn ex_14_4() {
+    let my_str = "hello".to_string();
+    let f = || drop(my_str);
+    f();
+    // note: closure cannot be invoked more than once because it moves the variable `my_str` out of its environment
+    // f();
+
+    ex_14_4_2();
+}
+
+fn ex_14_4_2() {
+    let my_str = "hello".to_string();
+    let f = || drop(my_str);
+
+    fn call_twice<F>(closure: F)
+    where
+        F: Fn(),
+    {
+        closure();
+        closure();
+    }
+    // error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
+    //call_twice(f);
 }
