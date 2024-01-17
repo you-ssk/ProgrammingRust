@@ -115,6 +115,8 @@ fn main() {
     println!("monster risk city : limit = {}, {}", limit, n);
 
     ex_14_4();
+
+    ex_14_4_3();
 }
 
 fn ex_14_1() {
@@ -187,4 +189,17 @@ fn ex_14_4_2() {
     }
     // error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
     //call_twice(f);
+}
+fn ex_14_4_3() {
+    fn call_twice<F>(mut closure: F)
+    where
+        F: FnMut(),
+    {
+        closure();
+        closure();
+    }
+    let mut i = 0;
+    call_twice(|| i += 1);
+    assert_eq!(i, 2);
+    println!("after call_twice {}", i)
 }
