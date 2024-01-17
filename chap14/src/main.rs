@@ -117,6 +117,8 @@ fn main() {
     ex_14_4();
 
     ex_14_4_3();
+
+    ex_14_4_4();
 }
 
 fn ex_14_1() {
@@ -190,6 +192,7 @@ fn ex_14_4_2() {
     // error[E0525]: expected a closure that implements the `Fn` trait, but this closure only implements `FnOnce`
     //call_twice(f);
 }
+
 fn ex_14_4_3() {
     fn call_twice<F>(mut closure: F)
     where
@@ -202,4 +205,28 @@ fn ex_14_4_3() {
     call_twice(|| i += 1);
     assert_eq!(i, 2);
     println!("after call_twice {}", i)
+}
+
+fn ex_14_4_4() {
+    let y = 10;
+    let add_y = |x| x + y;
+    let copy_of_add_y = add_y;
+    assert_eq!(add_y(copy_of_add_y(22)), 42);
+
+    let mut x = 0;
+    let mut add_to_x = |n: i32| {
+        x += n;
+        x
+    };
+    let copy_of_add_to_x = add_to_x;
+
+    //assert_eq!(add_to_x(copy_of_add_to_x(1)), 2); // cannot borrow as mutable
+
+    let mut greeting = String::from("Hello, ");
+    let greet = move |name| {
+        greeting.push_str(name);
+        println!("{}", greeting);
+    };
+    greet.clone()("Alfred");
+    greet.clone()("Bruce");
 }
