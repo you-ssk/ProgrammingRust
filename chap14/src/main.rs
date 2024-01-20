@@ -119,6 +119,8 @@ fn main() {
     ex_14_4_3();
 
     ex_14_4_4();
+
+    ex_14_5();
 }
 
 fn ex_14_1() {
@@ -229,4 +231,146 @@ fn ex_14_4_4() {
     };
     greet.clone()("Alfred");
     greet.clone()("Bruce");
+}
+
+fn ex_14_5() {
+    use std::collections::HashMap;
+
+    struct Request {
+        method: String,
+        url: String,
+        headers: HashMap<String, String>,
+        body: Vec<u8>,
+    }
+
+    #[derive(Debug)]
+    struct Response {
+        code: u32,
+        headers: HashMap<String, String>,
+        body: Vec<u8>,
+    }
+
+    // struct BasicRouter<C>
+    // where
+    //     C: Fn(&Request) -> Response,
+    // {
+    //     routes: HashMap<String, C>,
+    // }
+    //
+    // impl<C> BasicRouter<C>
+    // where
+    //     C: Fn(&Request) -> Response,
+    // {
+    //     // Create an empty router.
+    //     fn new() -> BasicRouter<C> {
+    //         BasicRouter {
+    //             routes: HashMap::new(),
+    //         }
+    //     }
+
+    //     fn add_route(&mut self, url: &str, callback: C) {
+    //         self.routes.insert(url.to_string(), callback);
+    //     }
+    // }
+
+    type BoxedCallback = Box<dyn Fn(&Request) -> Response>;
+
+    struct BasicRouter {
+        routes: HashMap<String, BoxedCallback>,
+    }
+
+    impl BasicRouter {
+        fn new() -> BasicRouter {
+            BasicRouter {
+                routes: HashMap::new(),
+            }
+        }
+
+        fn add_route<C>(&mut self, url: &str, callback: C)
+        where
+            C: Fn(&Request) -> Response + 'static,
+        {
+            self.routes.insert(url.to_string(), Box::new(callback));
+        }
+
+        fn handle_request(&self, request: &Request) -> Response {
+            match self.routes.get(&request.url) {
+                None => not_found_response(),
+                Some(callback) => callback(request),
+            }
+        }
+    }
+    fn not_found_response() -> Response {
+        Response {
+            code: 404,
+            headers: HashMap::new(),
+            body: b"<h1>Page not found</h1>".to_vec(),
+        }
+    }
+
+    fn get_from_response() -> Response {
+        Response {
+            code: 200,
+            headers: HashMap::new(),
+            body: b"<form>".to_vec(),
+        }
+    }
+
+    fn get_gcd_response(request: &Request) -> Response {
+        Response {
+            code: 500,
+            headers: HashMap::new(),
+            body: b"<h1>Internal Server Error</h1>".to_vec(),
+        }
+    }
+
+    let mut router = BasicRouter::new();
+    router.add_route("/", |_| get_from_response());
+    router.add_route("/gcd", |req| get_gcd_response(req));
+
+    {
+        let req = Request {
+            method: "GET".to_string(),
+            url: "/piano".to_string(),
+            headers: HashMap::new(),
+            body: vec![],
+        };
+        let res = router.handle_request(&req);
+        println!("{}", String::from_utf8(res.body).unwrap());
+    }
+    {
+        let req = Request {
+            method: "GET".to_string(),
+            url: "/".to_string(),
+            headers: HashMap::new(),
+            body: vec![],
+        };
+        let res = router.handle_request(&req);
+        println!("{}", String::from_utf8(res.body).unwrap());
+    }
+    {
+        let req = Request {
+            method: "GET".to_string(),
+            url: "/gcd".to_string(),
+            headers: HashMap::new(),
+            body: vec![],
+        };
+        let res = router.handle_request(&req);
+        println!("{}", String::from_utf8(res.body).unwrap());
+    }
+
+    struct FnPointerRouter {
+        routes: HashMap<String, fn(&Request) -> Response>,
+    }
+
+    impl FnPointerRouter {
+        fn new() -> FnPointerRouter {
+            FnPointerRouter {
+                routes: HashMap::new(),
+            }
+        }
+        fn add_route(&mut self, url: &str, callback: fn(&Request) -> Response) {
+            self.routes.insert(url.to_string(), callback);
+        }
+    }
 }
