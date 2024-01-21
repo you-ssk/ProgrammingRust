@@ -14,6 +14,7 @@ fn main() {
     println!("{}", triangle2(10));
 
     ex_15_1();
+    ex_15_2();
 }
 
 fn ex_15_1() {
@@ -28,4 +29,31 @@ fn ex_15_1() {
     while let Some(element) = iterator.next() {
         println!("{}", element);
     }
+}
+
+fn ex_15_2() {
+    use std::ffi::OsStr;
+    use std::path::Path;
+    let path = Path::new("C:/Users/JimB/Downloades/Fedora.iso");
+    println!("{:?}", path);
+    let mut iterator = path.iter();
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+    println!("{:?}", iterator.next());
+
+    ex_15_2_2();
+}
+
+fn ex_15_2_2() {
+    use std::collections::BTreeSet;
+    let mut favorites = BTreeSet::new();
+    favorites.insert("Lucy in the Sky With Diamonds".to_string());
+    favorites.insert("Liebesträume No. 3".to_string());
+
+    let mut it = favorites.into_iter();
+    println!("{:?}", it.next());
+    println!("{:?}", it.next());
+    println!("{:?}", it.next());
 }
