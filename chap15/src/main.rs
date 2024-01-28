@@ -45,6 +45,7 @@ fn ex_15_2() {
 
     ex_15_2_2();
     ex_15_2_3();
+    ex_15_2_4();
 }
 
 fn ex_15_2_2() {
@@ -91,4 +92,15 @@ fn ex_15_2_3() {
         })
     }
     println!("{:?}", fibonacci().take(8).collect::<Vec<_>>());
+}
+
+fn ex_15_2_4() {
+    let mut outer = "Earth".to_string();
+    {
+        let inner = String::from_iter(outer.drain(1..4));
+        println!("{}", outer);
+        println!("{}", inner);
+    }
+    println!("{}", outer);
+
 }
