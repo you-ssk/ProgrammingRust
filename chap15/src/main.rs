@@ -44,6 +44,7 @@ fn ex_15_2() {
     println!("{:?}", iterator.next());
 
     ex_15_2_2();
+    ex_15_2_3();
 }
 
 fn ex_15_2_2() {
@@ -56,4 +57,38 @@ fn ex_15_2_2() {
     println!("{:?}", it.next());
     println!("{:?}", it.next());
     println!("{:?}", it.next());
+}
+
+fn ex_15_2_3() {
+    use rand::random;
+    use std::iter::from_fn;
+
+    let length: Vec<f64> = from_fn(|| Some((random::<f64>() - random::<f64>()).abs()))
+        .take(100)
+        .collect();
+    println!("{:?}", length);
+
+    use num::Complex;
+    use std::iter::successors;
+
+    fn escape_time(c: Complex<f64>, limit: usize) -> Option<usize> {
+        let zero = Complex { re: 0.0, im: 0.0 };
+        successors(Some(zero), |&z| Some(z * z + c))
+            .take(limit)
+            .enumerate()
+            .find(|(_i, z)| z.norm_sqr() > 4.0)
+            .map(|(i, _z)| i)
+    }
+    let c = Complex { re: -1.0, im: 0.2 };
+    let size = escape_time(c, 20);
+    println!("c : {}, size : {:?}", c, size);
+
+    fn fibonacci() -> impl Iterator<Item = usize> {
+        let mut state = (0, 1);
+        std::iter::from_fn(move || {
+            state = (state.1, state.0 + state.1);
+            Some(state.0)
+        })
+    }
+    println!("{:?}", fibonacci().take(8).collect::<Vec<_>>());
 }
