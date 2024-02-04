@@ -107,6 +107,7 @@ fn ex_15_2_4() {
 fn ex_15_3() {
     ex_15_3_1();
     ex_15_3_2();
+    ex_15_3_3();
 }
 
 fn ex_15_3_1() {
@@ -160,4 +161,15 @@ fn ex_15_3_2() {
     for &city in countries.iter().flat_map(|country| &major_cities[country]) {
         println!("{}", city);
     }
+}
+
+fn ex_15_3_3() {
+    use std::collections::BTreeMap;
+
+    let mut parks = BTreeMap::new();
+    parks.insert("Portland", vec!["Mt. Toabor Park", "Forest Park"]);
+    parks.insert("Kyoto", vec!["Tadasu-no-Mori Forest", "Maruyama Koen"]);
+    parks.insert("Nashville", vec!["Percy Warner Park", "Dragon Park"]);
+    let all_parks: Vec<_> = parks.values().flatten().cloned().collect();
+    println!("{:?}", all_parks);
 }
