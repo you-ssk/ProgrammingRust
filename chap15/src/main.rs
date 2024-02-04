@@ -15,6 +15,7 @@ fn main() {
 
     ex_15_1();
     ex_15_2();
+    ex_15_3();
 }
 
 fn ex_15_1() {
@@ -32,7 +33,6 @@ fn ex_15_1() {
 }
 
 fn ex_15_2() {
-    use std::ffi::OsStr;
     use std::path::Path;
     let path = Path::new("C:/Users/JimB/Downloades/Fedora.iso");
     println!("{:?}", path);
@@ -102,5 +102,27 @@ fn ex_15_2_4() {
         println!("{}", inner);
     }
     println!("{}", outer);
+}
 
+fn ex_15_3() {
+    ex_15_3_1();
+}
+
+fn ex_15_3_1() {
+    let text = " ponies   \n   giraffes\niguanas   \nsquid".to_string();
+    {
+        let v: Vec<&str> = text.lines().map(str::trim).collect();
+        println!("{:?}", v);
+    }
+    {
+        let v: Vec<&str> = text
+            .lines()
+            .map(str::trim)
+            .filter(|s| *s != "iguanas")
+            .collect();
+        println!("{:?}", v);
+    }
+    // {
+    //     ["earth", "water", "air", "fire"].iter().map(|elt| println!("{}", elt));
+    // }
 }
