@@ -108,6 +108,7 @@ fn ex_15_3() {
     ex_15_3_1();
     ex_15_3_2();
     ex_15_3_3();
+    ex_15_3_4();
 }
 
 fn ex_15_3_1() {
@@ -172,4 +173,15 @@ fn ex_15_3_3() {
     parks.insert("Nashville", vec!["Percy Warner Park", "Dragon Park"]);
     let all_parks: Vec<_> = parks.values().flatten().cloned().collect();
     println!("{:?}", all_parks);
+}
+
+fn ex_15_3_4() {
+    let message = "To: jimb\r\n\
+    From: supergo <editor@oreilly.com>\r\n\
+    \r\n\
+    Did you get any writeing done today?\r\n\
+    When will you stop wasting time plotting fractals?\r\n";
+    for header in message.lines().take_while(|l| !l.is_empty()) {
+        println!("{}", header);
+    }
 }
