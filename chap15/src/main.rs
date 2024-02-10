@@ -110,6 +110,7 @@ fn ex_15_3() {
     ex_15_3_3();
     ex_15_3_4();
     ex_15_3_5();
+    ex_15_3_6();
 }
 
 fn ex_15_3_1() {
@@ -198,4 +199,30 @@ fn ex_15_3_5() {
     for body in message.lines().skip_while(|l| !l.is_empty()) {
         println!("{}", body);
     }
+}
+
+fn ex_15_3_6() {
+    use std::iter::Peekable;
+
+    fn parse_number<I>(tokens: &mut Peekable<I>) -> u32
+    where
+        I: Iterator<Item = char>,
+    {
+        let mut n = 0;
+        loop {
+            match tokens.peek() {
+                Some(r) if r.is_digit(10) => {
+                    n = n * 10 + r.to_digit(10).unwrap();
+                }
+                _ => return n,
+            }
+            tokens.next();
+        }
+    }
+    let mut chars = "226153980,1766319049".chars().peekable();
+    let n1 = parse_number(&mut chars);
+    println!("{}", n1);
+    chars.next();
+    let n2 = parse_number(&mut chars);
+    println!("{}", n2);
 }
