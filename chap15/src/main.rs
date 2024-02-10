@@ -109,6 +109,7 @@ fn ex_15_3() {
     ex_15_3_2();
     ex_15_3_3();
     ex_15_3_4();
+    ex_15_3_5();
 }
 
 fn ex_15_3_1() {
@@ -183,5 +184,18 @@ fn ex_15_3_4() {
     When will you stop wasting time plotting fractals?\r\n";
     for header in message.lines().take_while(|l| !l.is_empty()) {
         println!("{}", header);
+    }
+}
+
+fn ex_15_3_5() {
+    let message = "To: jimb\r\n\
+    From: supergo <editor@oreilly.com>\r\n\
+    Did you get any writeing done today?\r\n\
+    When will you stop wasting time plotting fractals?\r\n";
+    for body in message.lines().skip_while(|l| !l.is_empty()).skip(1) {
+        println!("{}", body);
+    }
+    for body in message.lines().skip_while(|l| !l.is_empty()) {
+        println!("{}", body);
     }
 }
