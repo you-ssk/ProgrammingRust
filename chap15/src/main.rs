@@ -111,6 +111,8 @@ fn ex_15_3() {
     ex_15_3_4();
     ex_15_3_5();
     ex_15_3_6();
+    ex_15_3_7();
+    ex_15_3_8();
 }
 
 fn ex_15_3_1() {
@@ -225,4 +227,51 @@ fn ex_15_3_6() {
     chars.next();
     let n2 = parse_number(&mut chars);
     println!("{}", n2);
+}
+
+fn ex_15_3_7() {
+    struct Flaky(bool);
+
+    impl Iterator for Flaky {
+        type Item = &'static str;
+        fn next(&mut self) -> Option<Self::Item> {
+            if self.0 {
+                self.0 = false;
+                Some("totally the last item")
+            } else {
+                self.0 = true;
+                None
+            }
+        }
+    }
+
+    {
+        let mut flaky = Flaky(true);
+        println!("{:?}", flaky.next());
+        println!("{:?}", flaky.next());
+        println!("{:?}", flaky.next());
+    }
+    {
+        let mut flaky = Flaky(true).fuse();
+        println!("{:?}", flaky.next());
+        println!("{:?}", flaky.next());
+        println!("{:?}", flaky.next());
+    }
+}
+
+fn ex_15_3_8() {
+    let bee_parts = ["head", "thorax", "abdomen"];
+
+    let mut iter = bee_parts.iter();
+    println!("{:?}", iter.next());
+    println!("{:?}", iter.next_back());
+    println!("{:?}", iter.next());
+    println!("{:?}", iter.next_back());
+
+    let meals = ["breakfast", "lunch", "dinner"];
+    let mut iter = meals.iter().rev();
+    
+    while let Some(e) = iter.next() {
+        println!("{}", e);
+    }
 }
