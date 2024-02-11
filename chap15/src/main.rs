@@ -115,6 +115,8 @@ fn ex_15_3() {
     ex_15_3_8();
     ex_15_3_9();
     ex_15_3_10();
+    ex_15_3_12();
+    ex_15_3_13();
 }
 
 fn ex_15_3_1() {
@@ -300,4 +302,34 @@ fn ex_15_3_10() {
     let a3 = 1..4;
     let v: Vec<i32> = a3.chain(a2).collect();
     println!("{:?}", v);
+}
+
+fn ex_15_3_12() {
+    let v: Vec<_> = (0..).zip("ABCD".chars()).collect();
+    println!("{:?}", v);
+
+    use std::iter::repeat;
+    let endings = ["once", "twice", "chicken sout with rice"];
+    let rhyme: Vec<_> = repeat("going").zip(endings).collect();
+    println!("{:?}", rhyme);
+}
+
+fn ex_15_3_13() {
+    let message = "To: jimb\r\n\
+    From: supergo <editor@oreilly.com>\r\n\
+    \r\n\
+    Did you get any writeing done today?\r\n\
+    When will you stop wasting time plotting fractals?\r\n";
+
+    let mut lines = message.lines();
+
+    println!("Headers:");
+    for header in lines.by_ref().take_while(|l| !l.is_empty()) {
+        println!("{}", header);
+    }
+
+    println!("\nBody:");
+    for body in lines {
+        println!("{}", body);
+    }
 }
