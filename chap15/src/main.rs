@@ -113,6 +113,8 @@ fn ex_15_3() {
     ex_15_3_6();
     ex_15_3_7();
     ex_15_3_8();
+    ex_15_3_9();
+    ex_15_3_10();
 }
 
 fn ex_15_3_1() {
@@ -270,8 +272,32 @@ fn ex_15_3_8() {
 
     let meals = ["breakfast", "lunch", "dinner"];
     let mut iter = meals.iter().rev();
-    
+
     while let Some(e) = iter.next() {
         println!("{}", e);
     }
+}
+
+fn ex_15_3_9() {
+    let upper_case: String = "große"
+        .chars()
+        .inspect(|c| println!("before: {:?}", c))
+        .flat_map(|c| c.to_uppercase())
+        .inspect(|c| println!(" after:  {:?}", c))
+        .collect();
+    println!("{}", upper_case);
+}
+
+fn ex_15_3_10() {
+    let a1 = [1, 2, 3, 4];
+    let a2 = [10, 20, 30, 40];
+
+    let mut it = a1.iter().chain(a2.iter());
+    while let Some(e) = it.next() {
+        println!("{}", e);
+    }
+
+    let a3 = 1..4;
+    let v: Vec<i32> = a3.chain(a2).collect();
+    println!("{:?}", v);
 }
