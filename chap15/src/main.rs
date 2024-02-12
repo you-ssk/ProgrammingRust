@@ -117,6 +117,8 @@ fn ex_15_3() {
     ex_15_3_10();
     ex_15_3_12();
     ex_15_3_13();
+    ex_15_3_14();
+    ex_15_3_15();
 }
 
 fn ex_15_3_1() {
@@ -331,5 +333,37 @@ fn ex_15_3_13() {
     println!("\nBody:");
     for body in lines {
         println!("{}", body);
+    }
+}
+
+fn ex_15_3_14() {
+    let a = ['1', '2', '3', '∞'];
+    assert_eq!(a.iter().next(), Some(&'1'));
+    assert_eq!(a.iter().cloned().next(), Some('1'));
+
+    println!("{:?}", a.iter().next());
+    println!("{:?}", a.iter().cloned().next());
+}
+
+fn ex_15_3_15() {
+    let dirs = ["North", "East", "South", "West"];
+    let mut spin = dirs.iter().cycle();
+    for _ in 1..10 {
+        println!("{}", spin.next().unwrap());
+    }
+
+    use std::iter::{once, repeat};
+
+    let fizzes = repeat("").take(2).chain(once("fizz")).cycle();
+    let buzzes = repeat("").take(5).chain(once("buzz")).cycle();
+    let fizzes_buzzes = fizzes.zip(buzzes);
+
+    let fizz_buzz = (1..100).zip(fizzes_buzzes).map(|tuple| match tuple {
+        (i, ("", "")) => i.to_string(),
+        (_, (fizz, buzz)) => format!("{}{}", fizz, buzz),
+    });
+
+    for line in fizz_buzz {
+        println!("{}", line);
     }
 }
