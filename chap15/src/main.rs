@@ -373,6 +373,7 @@ fn ex_15_4() {
     ex_15_4_1();
     ex_15_4_2();
     ex_15_4_3();
+    ex_15_4_4();
 }
 
 fn ex_15_4_1() {
@@ -415,4 +416,19 @@ fn ex_15_4_3() {
         // let max = numbers.iter().copied().max_by(cmp);
         // println!("max={:?}", max);
     }
+}
+
+fn ex_15_4_4() {
+    use std::collections::HashMap;
+    let mut populations = HashMap::new();
+    populations.insert("Portland", 583_776);
+    populations.insert("Fossil", 449);
+    populations.insert("Greenhorn", 2);
+    populations.insert("Boring", 7_762);
+    populations.insert("The Dalles", 15_340);
+
+    let max_pop = populations.iter().max_by_key(|&(_name, pop)| pop);
+    println!("{:?}", max_pop);
+    let min_pop = populations.iter().min_by_key(|&(_name, pop)| pop);
+    println!("{:?}", min_pop);
 }
