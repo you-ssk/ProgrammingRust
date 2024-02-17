@@ -371,6 +371,8 @@ fn ex_15_3_15() {
 
 fn ex_15_4() {
     ex_15_4_1();
+    ex_15_4_2();
+    ex_15_4_3();
 }
 
 fn ex_15_4_1() {
@@ -388,4 +390,29 @@ fn ex_15_4_1() {
         (1..=n).product()
     }
     println!("{}", factorila(20));
+}
+
+fn ex_15_4_2() {
+    let max = [-2, 0, 1, 0, -2, -5].iter().max();
+    let min = [-2, 0, 1, 0, -2, -5].iter().min();
+    println!("max={}, min={}", max.unwrap(), min.unwrap());
+}
+
+fn ex_15_4_3() {
+    use std::cmp::Ordering;
+
+    fn cmp(lhs: &f64, rhs: &f64) -> Ordering {
+        lhs.partial_cmp(rhs).unwrap()
+    }
+    {
+        let numbers = [1.0, 4.0, 2.0];
+        let max = numbers.iter().copied().max_by(cmp);
+        let min = numbers.iter().copied().min_by(cmp);
+        println!("max={}, min={}", max.unwrap(), min.unwrap());
+    }
+    {
+        // let numbers = [1.0, 4.0, std::f64::NAN, 2.0];
+        // let max = numbers.iter().copied().max_by(cmp);
+        // println!("max={:?}", max);
+    }
 }
