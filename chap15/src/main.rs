@@ -374,6 +374,7 @@ fn ex_15_4() {
     ex_15_4_2();
     ex_15_4_3();
     ex_15_4_4();
+    ex_15_4_5();
 }
 
 fn ex_15_4_1() {
@@ -431,4 +432,20 @@ fn ex_15_4_4() {
     println!("{:?}", max_pop);
     let min_pop = populations.iter().min_by_key(|&(_name, pop)| pop);
     println!("{:?}", min_pop);
+}
+
+fn ex_15_4_5() {
+    let packed = "Helen of Troy";
+    let spaced = "Helen     of    Troy";
+    let obscure = "Helen of Sandusky";
+    println!("{}", packed == spaced);
+    println!(
+        "{}",
+        packed.split_whitespace().eq(spaced.split_whitespace())
+    );
+    println!("{}", spaced < obscure);
+    println!(
+        "{}",
+        spaced.split_whitespace().gt(obscure.split_whitespace())
+    );
 }
