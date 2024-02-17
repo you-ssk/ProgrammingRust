@@ -16,6 +16,7 @@ fn main() {
     ex_15_1();
     ex_15_2();
     ex_15_3();
+    ex_15_4();
 }
 
 fn ex_15_1() {
@@ -366,4 +367,25 @@ fn ex_15_3_15() {
     for line in fizz_buzz {
         println!("{}", line);
     }
+}
+
+fn ex_15_4() {
+    ex_15_4_1();
+}
+
+fn ex_15_4_1() {
+    // use std::io::prelude::*;
+
+    // let stdin = std::io::stdin();
+    // println!("{}", stdin.lock().lines().count());
+
+    fn triangle(n: u64) -> u64 {
+        (1..=n).sum()
+    }
+    println!("{}", triangle(20));
+
+    fn factorila(n: u64) -> u64 {
+        (1..=n).product()
+    }
+    println!("{}", factorila(20));
 }
