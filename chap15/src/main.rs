@@ -375,6 +375,8 @@ fn ex_15_4() {
     ex_15_4_3();
     ex_15_4_4();
     ex_15_4_5();
+    ex_15_4_6();
+    ex_15_4_7();
 }
 
 fn ex_15_4_1() {
@@ -448,4 +450,37 @@ fn ex_15_4_5() {
         "{}",
         spaced.split_whitespace().gt(obscure.split_whitespace())
     );
+}
+
+fn ex_15_4_6() {
+    let id = "Iterator";
+    println!("any uppercase : {}", id.chars().any(char::is_uppercase));
+    println!("all uppercase : {}", id.chars().all(char::is_uppercase));
+}
+
+fn ex_15_4_7() {
+    let text = "Xerxes";
+    let ch = 'z';
+    let pos = text.chars().position(|c| c == ch);
+    if pos.is_some() {
+        println!("{} :'{}' pos: {:?}", text, ch, pos.unwrap());
+    } else {
+        println!("{} :'{}' isn't include", text, ch);
+    }
+
+    {
+        let ch = b'e';
+        let bytes = b"Xerxes";
+        let pos = bytes.iter().rposition(|&c| c == ch);
+        if pos.is_some() {
+            println!(
+                "{:?} :'{:?}' rpos: {:?}",
+                String::from_utf8(bytes.to_vec()),
+                ch,
+                pos.unwrap()
+            );
+        } else {
+            println!("{} :'{}' isn't include", text, ch);
+        }
+    }
 }
