@@ -377,6 +377,7 @@ fn ex_15_4() {
     ex_15_4_5();
     ex_15_4_6();
     ex_15_4_7();
+    ex_15_4_8();
 }
 
 fn ex_15_4_1() {
@@ -482,5 +483,28 @@ fn ex_15_4_7() {
         } else {
             println!("{} :'{}' isn't include", text, ch);
         }
+    }
+}
+
+fn ex_15_4_8() {
+    let a = [5, 6, 7, 8, 9, 10];
+    println!("{}", a.iter().fold(0, |n, _| n + 1));
+    println!("{}", a.iter().fold(0, |n, i| n + i));
+    println!("{}", a.iter().fold(1, |n, i| n * i));
+
+    println!(
+        "{}",
+        a.iter().cloned().fold(i32::min_value(), std::cmp::max)
+    );
+
+    {
+        let a = [
+            "Pack", "my", "box", "with", "five", "dozen", "liquor", "jugs",
+        ];
+        let pangram = a.iter().fold(String::new(), |s, w| s + w + " ");
+        println!("{}", pangram);
+
+        let weird_pangram = a.iter().rfold(String::new(), |s, w| s + w + " ");
+        println!("{}", weird_pangram);
     }
 }
