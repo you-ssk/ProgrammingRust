@@ -1,4 +1,10 @@
-fn main() {
+use std::error::Error;
+
+use std::io::prelude::*;
+use std::str::FromStr;
+
+// fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     fn triangle(n: i32) -> i32 {
         let mut sum = 0;
         for i in 1..=n {
@@ -17,6 +23,16 @@ fn main() {
     ex_15_2();
     ex_15_3();
     ex_15_4();
+
+    // let stdin = std::io::stdin();
+    // let sum = stdin
+    //     .lock()
+    //     .lines()
+    //     .try_fold(0, |sum, line| -> Result<u64, Box<dyn Error>> {
+    //         Ok(sum + u64::from_str(&line?.trim())?)
+    //     })?;
+    // println!("{}", sum);
+    Ok(())
 }
 
 fn ex_15_1() {
@@ -378,6 +394,7 @@ fn ex_15_4() {
     ex_15_4_6();
     ex_15_4_7();
     ex_15_4_8();
+    ex_15_4_10();
 }
 
 fn ex_15_4_1() {
@@ -507,4 +524,11 @@ fn ex_15_4_8() {
         let weird_pangram = a.iter().rfold(String::new(), |s, w| s + w + " ");
         println!("{}", weird_pangram);
     }
+}
+
+fn ex_15_4_10() {
+    let mut squares = (0..10).map(|i| i*i);
+    println!("{}", squares.nth(4).unwrap());
+    println!("{}", squares.nth(0).unwrap());
+    println!("{:?}", squares.nth(5));
 }
