@@ -1,8 +1,5 @@
 use std::error::Error;
 
-use std::io::prelude::*;
-use std::str::FromStr;
-
 // fn main() {
 fn main() -> Result<(), Box<dyn Error>> {
     fn triangle(n: i32) -> i32 {
@@ -396,6 +393,10 @@ fn ex_15_4() {
     ex_15_4_8();
     ex_15_4_10();
     ex_15_4_12();
+    ex_15_4_13();
+    ex_15_4_14();
+    ex_15_4_15();
+    ex_15_4_16();
 }
 
 fn ex_15_4_1() {
@@ -528,7 +529,7 @@ fn ex_15_4_8() {
 }
 
 fn ex_15_4_10() {
-    let mut squares = (0..10).map(|i| i*i);
+    let mut squares = (0..10).map(|i| i * i);
     println!("{}", squares.nth(4).unwrap());
     println!("{}", squares.nth(0).unwrap());
     println!("{:?}", squares.nth(5));
@@ -547,4 +548,44 @@ fn ex_15_4_12() {
     println!("{:?}", pop_million);
     let pop_500k = populations.iter().find(|&(_name, &pop)| pop > 500_000);
     println!("{:?}", pop_500k);
+}
+
+fn ex_15_4_13() {
+    use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet, LinkedList};
+
+    let args_h: HashSet<String> = std::env::args().collect();
+    let args_b: BTreeSet<String> = std::env::args().collect();
+    let args_l: LinkedList<String> = std::env::args().collect();
+
+    println!("{:?} {:?} {:?}", args_h, args_b, args_l);
+
+    let args_hm: HashMap<String, usize> = std::env::args().zip(0..).collect();
+    let args_btm: BTreeMap<String, usize> = std::env::args().zip(0..).collect();
+    println!("{:?}, {:?}", args_hm, args_btm);
+}
+
+fn ex_15_4_14() {
+    let mut v: Vec<i32> = (0..5).map(|i| 1 << i).collect();
+    v.extend([31, 57, 99, 163]);
+    println!("{:?}", v)
+}
+
+fn ex_15_4_15() {
+    let things = ["doorknob", "mushroom", "noodle", "giraffe", "grapefruit"];
+
+    let (living, nonliving): (Vec<&str>, Vec<&str>) =
+        things.iter().partition(|name| name.as_bytes()[0] & 1 != 0);
+    println!("living: {living:?}, nonliving : {nonliving:?}");
+}
+
+fn ex_15_4_16() {
+    ["doves", "hens", "birds"]
+        .iter()
+        .zip(["turtle", "french", "calling"])
+        .zip(2..5)
+        .rev()
+        .map(|((item, kind), quantity)| format!("{} {} {}", quantity, kind, item))
+        .for_each(|gift| {
+            println!("You have received: {}", gift);
+        });
 }
