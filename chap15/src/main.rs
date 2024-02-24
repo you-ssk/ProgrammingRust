@@ -395,6 +395,7 @@ fn ex_15_4() {
     ex_15_4_7();
     ex_15_4_8();
     ex_15_4_10();
+    ex_15_4_12();
 }
 
 fn ex_15_4_1() {
@@ -531,4 +532,19 @@ fn ex_15_4_10() {
     println!("{}", squares.nth(4).unwrap());
     println!("{}", squares.nth(0).unwrap());
     println!("{:?}", squares.nth(5));
+}
+
+fn ex_15_4_12() {
+    use std::collections::HashMap;
+    let mut populations = HashMap::new();
+    populations.insert("Portland", 583_776);
+    populations.insert("Fossil", 449);
+    populations.insert("Greenhorn", 2);
+    populations.insert("Boring", 7_762);
+    populations.insert("The Dalles", 15_340);
+
+    let pop_million = populations.iter().find(|&(_name, &pop)| pop > 1_000_000);
+    println!("{:?}", pop_million);
+    let pop_500k = populations.iter().find(|&(_name, &pop)| pop > 500_000);
+    println!("{:?}", pop_500k);
 }
